@@ -3,26 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vijayalakshmi .R | Mechanical & AI Engineer</title>
+    <title>Vijayalakshmi R | Mechanical & AI Engineer</title>
     <style>
         :root {
-            --primary: #0284c7; 
-            --dark: #0f172a;
-            --light: #f8fafc;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0; background-color: var(--light); color: var(--dark); line-height: 1.6;
+            --primary: #00e5ff; /* Neon Cyan */
+            --dark-bg: #050b14; /* Deep dark blue/black */
+            --card-bg: #111827;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
         
-        /* Header & 3D Flip Profile */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; 
+            background-color: var(--dark-bg); 
+            color: var(--text-main); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Smooth Scroll & Fade Animations */
+        html { scroll-behavior: smooth; }
+        .fade-in-section {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible { opacity: 1; transform: none; }
+        
+        /* ------------------------- */
+        /* HEADER & ANIMATIONS       */
+        /* ------------------------- */
         header {
-            text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
-            border-bottom: 2px solid #e2e8f0; display: flex; flex-direction: column; align-items: center;
+            position: relative;
+            padding: 6rem 2rem 5rem; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #1e293b;
+            min-height: 80vh;
         }
+
+        /* Floating Stars/Particles Animation */
+        .stars {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+        }
+        .star {
+            position: absolute; background: var(--primary); border-radius: 50%;
+            animation: float 5s infinite ease-in-out alternate;
+            opacity: 0.6;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); opacity: 0.3; }
+            100% { transform: translateY(-20px) scale(1.5); opacity: 1; }
+        }
+
+        /* 3D Glowing Flip Card */
+        .header-content { position: relative; z-index: 1; text-align: left; max-width: 800px; width: 100%; display: flex; flex-direction: column; align-items: center;}
+        
         .flip-card {
-            background-color: transparent; width: 200px; height: 200px; perspective: 1000px; margin-bottom: 1.5rem;
+            background-color: transparent; width: 220px; height: 220px; perspective: 1000px; 
+            margin-bottom: 2.5rem; border-radius: 50%;
+            /* The Neon Glow */
+            box-shadow: 0 0 35px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.2);
+            animation: pulseGlow 3s infinite alternate;
         }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 25px rgba(0, 229, 255, 0.3); }
+            100% { box-shadow: 0 0 50px rgba(0, 229, 255, 0.6); }
+        }
+
         .flip-card-inner {
             position: relative; width: 100%; height: 100%; text-align: center;
             transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 50%;
@@ -30,95 +79,146 @@
         .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
             position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover;
+            border-radius: 50%; border: 3px solid var(--primary); object-fit: cover;
         }
-        /* Using the same photo for both sides, but applying a neat CSS filter for the 'Avatar' back side */
         .flip-card-back { 
-            transform: rotateY(180deg); filter: contrast(1.2) saturate(1.5) sepia(0.3);
+            transform: rotateY(180deg); 
+            filter: contrast(1.2) saturate(1.5) sepia(0.3) hue-rotate(-10deg);
         }
 
-        h1 { margin: 0; font-size: 2.8rem; color: var(--dark); }
-        .tagline { color: var(--primary); font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600; }
+        /* Typography */
+        .intro-text { text-align: left; width: 100%; max-width: 600px; }
+        h1 { margin: 0; font-size: 3.5rem; color: var(--primary); line-height: 1.1; font-weight: 700; }
+        .tagline { color: var(--primary); font-size: 1.2rem; margin-top: 1rem; margin-bottom: 2rem; font-weight: 500; }
         
-        section { padding: 4rem 10%; }
-        section:nth-child(even) { background-color: white; }
-        h2 { border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 0.3rem; margin-top: 0; }
+        /* Blinking Cursor Effect */
+        .cursor { display: inline-block; width: 4px; height: 3.5rem; background-color: var(--primary); margin-left: 5px; vertical-align: bottom; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Header Buttons */
+        .header-buttons { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .btn-solid { background: var(--primary); color: #000; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s; border: 2px solid var(--primary); }
+        .btn-solid:hover { background: transparent; color: var(--primary); box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
+        .btn-outline { background: transparent; color: var(--primary); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 2px solid var(--primary); transition: all 0.3s; }
+        .btn-outline:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
+
+        /* ------------------------- */
+        /* MAIN CONTENT SECTIONS     */
+        /* ------------------------- */
+        section { padding: 5rem 10%; }
+        section:nth-child(odd) { background-color: #07101d; }
+        h2 { border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 0.3rem; margin-top: 0; color: white; }
         
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1.5rem; }
-        .card { background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid #1e293b; transition: transform 0.3s, box-shadow 0.3s; color: var(--text-muted); }
+        .card h3 { color: white; margin-top: 0; }
+        .card strong { color: var(--primary); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: var(--primary); }
         
         .skills-list span {
-            display: inline-block; background: #e0f2fe; color: var(--primary); padding: 0.4rem 1rem;
-            border-radius: 20px; margin: 0.3rem; font-size: 0.95rem; font-weight: 600;
+            display: inline-block; background: transparent; color: var(--primary); padding: 0.5rem 1.2rem;
+            border-radius: 25px; margin: 0.4rem 0.2rem; font-size: 0.95rem; font-weight: 600; 
+            border: 1px solid var(--primary); transition: all 0.3s;
         }
+        .skills-list span:hover { background: var(--primary); color: #000; box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
 
-        /* Certificates Timeline */
-        .cert-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        /* Certificates Timeline (Dark Mode) */
+        .cert-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
         .cert-item {
-            display: flex; justify-content: space-between; align-items: center; background: #f8fafc;
-            padding: 1.2rem 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            cursor: pointer; transition: all 0.2s; border-left: 4px solid #cbd5e1; border: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);
+            padding: 1.2rem 1.5rem; border-radius: 8px; border: 1px solid #1e293b;
+            cursor: pointer; transition: all 0.3s; border-left: 4px solid #334155; color: var(--text-main);
         }
-        .cert-item:hover { transform: translateY(-3px); border-left: 4px solid var(--primary); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .cert-item small { color: var(--text-muted); }
+        .cert-item:hover { transform: translateY(-3px) scale(1.02); border-left: 4px solid var(--primary); background: #1e293b; }
         .cert-year { font-weight: bold; color: var(--primary); font-size: 1.2rem; min-width: 50px; text-align: right;}
-        .cert-group-title { grid-column: 1 / -1; margin-top: 1.5rem; color: var(--dark); border-bottom: 2px solid #e2e8f0;}
+        .cert-group-title { grid-column: 1 / -1; margin-top: 2rem; color: white; border-bottom: 1px solid #334155; padding-bottom: 5px;}
         
-        /* Modal */
+        /* Modal for Viewing Certificates */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.9); z-index: 2000; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.9); z-index: 2000; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
         }
-        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 4px solid white; }
-        .close-btn { position: absolute; top: 20px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
+        .modal.show { display: flex; opacity: 1; }
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(0,229,255,0.2); transform: scale(0.8); transition: transform 0.3s ease; }
+        .modal.show img { transform: scale(1); }
+        .close-btn { position: absolute; top: 20px; right: 40px; color: var(--primary); font-size: 3rem; cursor: pointer; transition: color 0.2s; }
+        .close-btn:hover { color: white; }
 
-        /* Contact */
-        .contact-details { font-size: 1.1rem; line-height: 2; margin-top: 1.5rem; }
-        .contact-details a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        /* Contact Section */
+        .contact-box { background: var(--card-bg); padding: 2.5rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #1e293b; }
+        .contact-details { display: flex; flex-direction: column; gap: 1.5rem; font-size: 1.1rem; }
+        .contact-item { display: flex; align-items: center; gap: 1rem; }
+        .contact-icon { font-size: 1.5rem; background: #1e293b; border: 1px solid #334155; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s; }
+        .contact-item:hover .contact-icon { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,229,255,0.2); }
+        .contact-item a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .contact-item a:hover { text-decoration: underline; }
 
-        /* Chatbot */
+        /* Chatbot (Dark Mode) */
         .chat-widget {
-            position: fixed; bottom: 20px; right: 20px; width: 320px; background: white;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden; z-index: 1000;
+            position: fixed; bottom: 20px; right: 20px; width: 300px; background: var(--card-bg);
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; z-index: 1000;
+            border: 1px solid var(--primary);
         }
-        .chat-header { background: var(--primary); color: white; padding: 12px; text-align: center; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between;}
-        .chat-body { height: 280px; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px; }
-        .chat-input-area { display: flex; border-top: 1px solid #e2e8f0; }
-        .chat-input-area input { flex: 1; padding: 12px; border: none; outline: none; }
-        .chat-input-area button { background: var(--primary); color: white; border: none; padding: 12px 15px; cursor: pointer; font-weight: bold; }
-        .msg { padding: 10px 14px; border-radius: 15px; max-width: 85%; font-size: 0.9rem; }
-        .msg.bot { background: #e2e8f0; color: var(--dark); align-self: flex-start; }
-        .msg.user { background: var(--primary); color: white; align-self: flex-end; }
+        .chat-header { 
+            background: rgba(0, 229, 255, 0.1); color: var(--primary); padding: 15px; font-weight: bold; 
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+        .chat-body { height: 280px; padding: 15px; overflow-y: auto; background: var(--dark-bg); display: flex; flex-direction: column; gap: 10px; }
+        .chat-input-area { display: flex; border-top: 1px solid #1e293b; background: var(--card-bg); }
+        .chat-input-area input { flex: 1; padding: 12px; border: none; outline: none; background: transparent; color: white; font-size: 0.9rem; }
+        .chat-input-area input::placeholder { color: #64748b; }
+        .chat-input-area button { background: var(--primary); color: #000; border: none; padding: 12px 18px; cursor: pointer; font-weight: bold; transition: background 0.2s;}
+        .chat-input-area button:hover { background: white; }
+        .msg { padding: 10px 14px; border-radius: 15px; max-width: 85%; font-size: 0.85rem; line-height: 1.4; }
+        .msg.bot { background: #1e293b; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #334155; }
+        .msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500;}
         #chatBodyWrapper { display: none; }
 
-        footer { text-align: center; padding: 2rem; background: var(--dark); color: white; }
+        footer { text-align: center; padding: 2rem; background: #030712; color: var(--text-muted); border-top: 1px solid #1e293b; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <img src="viji photo.jpeg" alt="Vijayalakshmi .R" class="flip-card-front" onerror="this.src='https://via.placeholder.com/200?text=Profile+Pic'">
-                <img src="viji photo.jpeg" alt="Avatar" class="flip-card-back" onerror="this.src='https://via.placeholder.com/200?text=Avatar'">
+    <header class="fade-in-section">
+        <div class="stars" id="star-container"></div>
+        
+        <div class="header-content">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <img src="viji-photo.jpeg" alt="Vijayalakshmi R" class="flip-card-front" onerror="this.src='https://placehold.co/400x400/00e5ff/000000?text=Your+Photo'">
+                    <img src="viji-photo.jpeg" alt="Avatar" class="flip-card-back" onerror="this.src='https://placehold.co/400x400/111827/00e5ff?text=Avatar'">
+                </div>
+            </div>
+
+            <div class="intro-text">
+                <h1 style="font-weight: 300; font-size: 3rem;">Hi, I'm</h1>
+                <h1>Vijayalakshmi<br>R<span class="cursor"></span></h1>
+                <p class="tagline">2nd Year Mechanical Engineering Student</p>
+                
+                <div class="header-buttons">
+                    <a href="#contact" class="btn-solid">Get In Touch</a>
+                    <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326" target="_blank" class="btn-outline">LinkedIn</a>
+                </div>
             </div>
         </div>
-        <h1>Vijayalakshmi .R</h1>
-        <p class="tagline">Driven Mechanical Engineering Student Merging Core Systems with AI Innovations</p>
     </header>
 
-    <section id="about">
+    <section id="about" class="fade-in-section">
         <h2>About Me</h2>
-        <p>I am a passionate second-year Mechanical Engineering student at Arjun College of Technology in Coimbatore. My true fascination lies at the intersection of traditional mechanical systems and cutting-edge artificial intelligence. With a solid foundation in core mechanics like CAD modeling and welding technologies, paired with a growing expertise in Java and AI concepts, I am dedicated to building the smart engineering solutions of tomorrow. I thrive on continuous learning, effective communication, and tackling complex design challenges.</p>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">I am a passionate second-year Mechanical Engineering student at Arjun College of Technology in Coimbatore. My true fascination lies at the intersection of traditional mechanical systems and cutting-edge artificial intelligence. With a solid foundation in core mechanics like CAD modeling and welding technologies, paired with a growing expertise in Java and AI concepts, I am dedicated to building the smart engineering solutions of tomorrow.</p>
         
         <div class="grid-container">
             <div class="card">
-                <h3>🎯 Goals</h3>
+                <h3>🎯 Career Goals</h3>
                 <p><strong>Short-Term:</strong> To excel in my mechanical engineering studies, master advanced CAD tools, and actively participate in technical symposiums.</p>
                 <p><strong>Long-Term:</strong> To become a versatile, industry-leading engineer who seamlessly merges traditional mechanical principles with AI technology to create smart, automated systems.</p>
             </div>
             <div class="card">
                 <h3>🎨 Hobbies</h3>
-                <ul>
+                <ul style="padding-left: 20px; line-height: 1.8;">
                     <li>Organizing core engineering events</li>
                     <li>Learning CATIA & designing courses</li>
                     <li>Book reading</li>
@@ -128,20 +228,20 @@
         </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="fade-in-section">
         <h2>Technical Expertise</h2>
         <div class="skills-list">
             <span>CAD Modelling</span>
             <span>Welding Technologies</span>
             <span>Basic Java Programming</span>
             <span>AI Concepts</span>
-            <span>Excellent Communication</span>
+            <span>Effective Communication</span>
         </div>
     </section>
 
-    <section id="certificates">
+    <section id="certificates" class="fade-in-section">
         <h2>My Certifications Gallery</h2>
-        <p>I have earned 16 certificates across technical symposiums, workshops, and extracurriculars. Click any tile to view the document!</p>
+        <p style="color: var(--text-muted);">Click any tile below to view the certificate document!</p>
         
         <div class="cert-container">
             <h3 class="cert-group-title">2024 Achievements</h3>
@@ -188,7 +288,7 @@
                 <div class="cert-year">Mar</div>
             </div>
             <div class="cert-item" onclick="openModal('cert11.jpg')">
-                <div><strong>ACET TECH FEST 2025</strong><br><small>Akshaya College of Engineering</small></div>
+                <div><strong>ACET TECH FEST 2025</strong><br><small>Akshaya College</small></div>
                 <div class="cert-year">Mar</div>
             </div>
             <div class="cert-item" onclick="openModal('cert12.jpg')">
@@ -196,11 +296,11 @@
                 <div class="cert-year">Apr</div>
             </div>
             <div class="cert-item" onclick="openModal('cert13.jpg')">
-                <div><strong>Tamil Mukil Virudhu</strong><br><small>Palladam-Vellore Muthamizh Sangamam</small></div>
+                <div><strong>Tamil Mukil Virudhu</strong><br><small>Palladam-Vellore Sangamam</small></div>
                 <div class="cert-year">2025</div>
             </div>
             <div class="cert-item" onclick="openModal('cert14.jpg')">
-                <div><strong>ICT Academy Youth Talk Pre-finals</strong><br><small>ICT Academy / Rathinam Group</small></div>
+                <div><strong>ICT Academy Youth Talk</strong><br><small>Rathinam Group</small></div>
                 <div class="cert-year">Sep</div>
             </div>
 
@@ -210,7 +310,7 @@
                 <div class="cert-year">Feb</div>
             </div>
             <div class="cert-item" onclick="openModal('cert16.jpg')">
-                <div><strong>EGSOW 2K26 Technical Fest</strong><br><small>Karpagam Academy of Higher Education</small></div>
+                <div><strong>EGSOW 2K26 Technical Fest</strong><br><small>Karpagam Academy</small></div>
                 <div class="cert-year">Feb</div>
             </div>
         </div>
@@ -218,32 +318,47 @@
 
     <div id="certModal" class="modal" onclick="closeModal()">
         <span class="close-btn">&times;</span>
-        <img id="modalImg" src="" alt="Certificate View">
+        <img id="modalImg" src="" alt="Certificate View" onerror="this.src='https://placehold.co/800x600/111827/00e5ff?text=Add+Certificate+Image'">
     </div>
 
-    <section id="contact">
+    <section id="contact" class="fade-in-section">
         <h2>Get In Touch</h2>
-        <p>I am always eager to connect with fellow engineers, tech enthusiasts, and potential mentors!</p>
-        <div class="contact-details">
-            <div>📞 <strong>Phone:</strong> +91 8072863606</div>
-            <div>📧 <strong>Email:</strong> <a href="mailto:rvijayalakshmia@gmail.com">rvijayalakshmia@gmail.com</a></div>
-            <div>🔗 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">View My Profile</a></div>
-            <div>📍 <strong>Location:</strong> Coimbatore, Tamil Nadu.</div>
+        <p style="color: var(--text-muted);">Let's connect! I am always open to discussing engineering, AI, or new opportunities.</p>
+        
+        <div class="contact-box">
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div><strong>Phone:</strong> +91 8072863606</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div><strong>Email:</strong> <a href="mailto:rvijayalakshmia@gmail.com">rvijayalakshmia@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🔗</div>
+                    <div><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326" target="_blank">Connect with me</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div><strong>Location:</strong> Coimbatore, Tamil Nadu.</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Vijayalakshmi .R | Arjun College of Technology</p>
+        <p>&copy; 2026 Vijayalakshmi R | Arjun College of Technology</p>
     </footer>
 
     <div class="chat-widget">
         <div class="chat-header" onclick="toggleChat()">
-            <span>🤖 Viji's Assistant</span>
+            <span>🤖 Ask Viji's AI</span>
             <span id="chatToggleIcon">▲</span>
         </div>
         <div id="chatBodyWrapper">
             <div class="chat-body" id="chatBox">
-                <div class="msg bot">Hi! I'm Vijayalakshmi's AI assistant. Ask me about her college, skills, or her 16 certificates!</div>
+                <div class="msg bot">Hi! I'm Viji's virtual assistant. Ask me anything about her!</div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
@@ -253,17 +368,49 @@
     </div>
 
     <script>
-        // Modal Logic
+        // 1. Generate Floating Stars Background
+        const starContainer = document.getElementById('star-container');
+        for(let i = 0; i < 20; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            let size = Math.random() * 4 + 2; // Size between 2px and 6px
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            star.style.opacity = Math.random() * 0.5 + 0.2;
+            starContainer.appendChild(star);
+        }
+
+        // 2. Scroll Animation Logic
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 3. Certificate Modal Logic
         const modal = document.getElementById('certModal');
         const modalImg = document.getElementById('modalImg');
 
         function openModal(imageSrc) {
-            modal.style.display = 'flex';
+            modal.classList.add('show');
             modalImg.src = imageSrc; 
         }
-        function closeModal() { modal.style.display = 'none'; }
+        function closeModal() { 
+            modal.classList.remove('show'); 
+            setTimeout(() => { modalImg.src = ''; }, 300); 
+        }
 
-        // Chatbot Logic
+        // 4. Advanced Chatbot Logic
         function toggleChat() {
             const wrapper = document.getElementById('chatBodyWrapper');
             const icon = document.getElementById('chatToggleIcon');
@@ -287,24 +434,28 @@
             inputField.value = '';
 
             setTimeout(() => {
-                let reply = "I'm still learning! Ask me about Viji's 'skills', 'college', 'certificates', or 'contact'.";
+                let reply = "That's interesting! If you want specific info, try asking about her 'skills', 'college', 'certificates', or say 'tell me about her'.";
                 
-                if (text.includes('college') || text.includes('study')) {
-                    reply = "Viji is a 2nd-year Mechanical Engineering student at Arjun College of Technology in Coimbatore.";
-                } else if (text.includes('skill') || text.includes('tech')) {
+                if (text.includes('bye') || text.includes('goodbye') || text.includes('see you')) {
+                    reply = "Goodbye! Have a wonderful day! 🌟";
+                } else if (text === 'about her' || text.includes('who is') || text.includes('tell me about')) {
+                    reply = "Vijayalakshmi is a passionate 2nd-year Mechanical Engineering student at Arjun College of Technology. She uniquely blends mechanical systems with AI innovations!";
+                } else if (text.includes('college') || text.includes('study') || text.includes('degree')) {
+                    reply = "She studies at Arjun College of Technology in Coimbatore, majoring in Mechanical Engineering.";
+                } else if (text.includes('skill') || text.includes('tech') || text.includes('java') || text.includes('cad')) {
                     reply = "Her top skills are CAD modelling, welding tech, basic Java, AI concepts, and strong communication.";
-                } else if (text.includes('cert') || text.includes('award') || text.includes('hackathon')) {
-                    reply = "She is highly active! She holds 16 certificates from hackathons, paper presentations, and even a Radio Video Contest award from Magizhchi FM!";
-                } else if (text.includes('goal') || text.includes('future')) {
-                    reply = "She wants to be a versatile engineer merging mechanical principles with AI technology!";
-                } else if (text.includes('contact') || text.includes('phone') || text.includes('email')) {
-                    reply = "Reach her at +91 8072863606, email rvijayalakshmia@gmail.com, or via LinkedIn.";
-                } else if (text.includes('hello') || text.includes('hi')) {
-                    reply = "Hello there! What would you like to know about Vijayalakshmi?";
+                } else if (text.includes('cert') || text.includes('award') || text.includes('prize')) {
+                    reply = "She is an overachiever! She holds 16 certificates including the Magizhchi Magudam Award and the Kathai Kaaviri Award.";
+                } else if (text.includes('goal') || text.includes('future') || text.includes('aim')) {
+                    reply = "Her goal is to be a versatile engineer who merges traditional mechanical principles with AI technology to create smart systems.";
+                } else if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('number')) {
+                    reply = "You can call her at +91 8072863606 or email her at rvijayalakshmia@gmail.com.";
+                } else if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
+                    reply = "Hello there! I am ready to answer your questions about Vijayalakshmi.";
                 }
 
                 appendMessage(reply, 'bot');
-            }, 500);
+            }, 600);
         }
 
         function appendMessage(text, sender) {
