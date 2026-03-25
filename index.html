@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijayalakshmi .R | Mechanical & AI Engineer</title>
+    <style>
+        :root {
+            --primary: #0284c7; 
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; background-color: var(--light); color: var(--dark); line-height: 1.6;
+        }
+        
+        /* Header & 3D Flip Profile */
+        header {
+            text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+            border-bottom: 2px solid #e2e8f0; display: flex; flex-direction: column; align-items: center;
+        }
+        .flip-card {
+            background-color: transparent; width: 200px; height: 200px; perspective: 1000px; margin-bottom: 1.5rem;
+        }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 50%;
+        }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover;
+        }
+        /* Using the same photo for both sides, but applying a neat CSS filter for the 'Avatar' back side */
+        .flip-card-back { 
+            transform: rotateY(180deg); filter: contrast(1.2) saturate(1.5) sepia(0.3);
+        }
+
+        h1 { margin: 0; font-size: 2.8rem; color: var(--dark); }
+        .tagline { color: var(--primary); font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600; }
+        
+        section { padding: 4rem 10%; }
+        section:nth-child(even) { background-color: white; }
+        h2 { border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 0.3rem; margin-top: 0; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1.5rem; }
+        .card { background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        
+        .skills-list span {
+            display: inline-block; background: #e0f2fe; color: var(--primary); padding: 0.4rem 1rem;
+            border-radius: 20px; margin: 0.3rem; font-size: 0.95rem; font-weight: 600;
+        }
+
+        /* Certificates Timeline */
+        .cert-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .cert-item {
+            display: flex; justify-content: space-between; align-items: center; background: #f8fafc;
+            padding: 1.2rem 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            cursor: pointer; transition: all 0.2s; border-left: 4px solid #cbd5e1; border: 1px solid #e2e8f0;
+        }
+        .cert-item:hover { transform: translateY(-3px); border-left: 4px solid var(--primary); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .cert-year { font-weight: bold; color: var(--primary); font-size: 1.2rem; min-width: 50px; text-align: right;}
+        .cert-group-title { grid-column: 1 / -1; margin-top: 1.5rem; color: var(--dark); border-bottom: 2px solid #e2e8f0;}
+        
+        /* Modal */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.9); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 4px solid white; }
+        .close-btn { position: absolute; top: 20px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
+
+        /* Contact */
+        .contact-details { font-size: 1.1rem; line-height: 2; margin-top: 1.5rem; }
+        .contact-details a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        /* Chatbot */
+        .chat-widget {
+            position: fixed; bottom: 20px; right: 20px; width: 320px; background: white;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden; z-index: 1000;
+        }
+        .chat-header { background: var(--primary); color: white; padding: 12px; text-align: center; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between;}
+        .chat-body { height: 280px; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px; }
+        .chat-input-area { display: flex; border-top: 1px solid #e2e8f0; }
+        .chat-input-area input { flex: 1; padding: 12px; border: none; outline: none; }
+        .chat-input-area button { background: var(--primary); color: white; border: none; padding: 12px 15px; cursor: pointer; font-weight: bold; }
+        .msg { padding: 10px 14px; border-radius: 15px; max-width: 85%; font-size: 0.9rem; }
+        .msg.bot { background: #e2e8f0; color: var(--dark); align-self: flex-start; }
+        .msg.user { background: var(--primary); color: white; align-self: flex-end; }
+        #chatBodyWrapper { display: none; }
+
+        footer { text-align: center; padding: 2rem; background: var(--dark); color: white; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <img src="viji photo.jpeg" alt="Vijayalakshmi .R" class="flip-card-front" onerror="this.src='https://via.placeholder.com/200?text=Profile+Pic'">
+                <img src="viji photo.jpeg" alt="Avatar" class="flip-card-back" onerror="this.src='https://via.placeholder.com/200?text=Avatar'">
+            </div>
+        </div>
+        <h1>Vijayalakshmi .R</h1>
+        <p class="tagline">Driven Mechanical Engineering Student Merging Core Systems with AI Innovations</p>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a passionate second-year Mechanical Engineering student at Arjun College of Technology in Coimbatore. My true fascination lies at the intersection of traditional mechanical systems and cutting-edge artificial intelligence. With a solid foundation in core mechanics like CAD modeling and welding technologies, paired with a growing expertise in Java and AI concepts, I am dedicated to building the smart engineering solutions of tomorrow. I thrive on continuous learning, effective communication, and tackling complex design challenges.</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>🎯 Goals</h3>
+                <p><strong>Short-Term:</strong> To excel in my mechanical engineering studies, master advanced CAD tools, and actively participate in technical symposiums.</p>
+                <p><strong>Long-Term:</strong> To become a versatile, industry-leading engineer who seamlessly merges traditional mechanical principles with AI technology to create smart, automated systems.</p>
+            </div>
+            <div class="card">
+                <h3>🎨 Hobbies</h3>
+                <ul>
+                    <li>Organizing core engineering events</li>
+                    <li>Learning CATIA & designing courses</li>
+                    <li>Book reading</li>
+                    <li>Socializing and networking</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Expertise</h2>
+        <div class="skills-list">
+            <span>CAD Modelling</span>
+            <span>Welding Technologies</span>
+            <span>Basic Java Programming</span>
+            <span>AI Concepts</span>
+            <span>Excellent Communication</span>
+        </div>
+    </section>
+
+    <section id="certificates">
+        <h2>My Certifications Gallery</h2>
+        <p>I have earned 16 certificates across technical symposiums, workshops, and extracurriculars. Click any tile to view the document!</p>
+        
+        <div class="cert-container">
+            <h3 class="cert-group-title">2024 Achievements</h3>
+            <div class="cert-item" onclick="openModal('cert1.jpg')">
+                <div><strong>MXCEL-2K24 Symposium</strong><br><small>Kongu Engineering College</small></div>
+                <div class="cert-year">Oct</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert2.jpg')">
+                <div><strong>SHOCKAERONZ'24 Symposium</strong><br><small>Hindusthan College of Engineering</small></div>
+                <div class="cert-year">Oct</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert3.jpg')">
+                <div><strong>EBG Socio-Innovation Summit</strong><br><small>EBG Summit Coimbatore</small></div>
+                <div class="cert-year">Oct</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert4.jpg')">
+                <div><strong>Welding Technology Workshop</strong><br><small>SSI Technical Training Institute</small></div>
+                <div class="cert-year">Nov</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert5.jpg')">
+                <div><strong>Math Magician's Day 2k24</strong><br><small>Arjun College of Technology</small></div>
+                <div class="cert-year">Dec</div>
+            </div>
+
+            <h3 class="cert-group-title">2025 Achievements</h3>
+            <div class="cert-item" onclick="openModal('cert6.jpg')">
+                <div><strong>Magizhchi Magudam Award</strong><br><small>Magizhchi FM</small></div>
+                <div class="cert-year">Feb</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert7.jpg')">
+                <div><strong>KiTE Odyssey 25 - Connection</strong><br><small>KGISL Institute of Technology</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert8.jpg')">
+                <div><strong>KiTE Odyssey 25 - Elocution</strong><br><small>KGISL Institute of Technology</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert9.jpg')">
+                <div><strong>KiTE Odyssey 25 - Participation</strong><br><small>KGISL Institute of Technology</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert10.jpg')">
+                <div><strong>Jfinagles 2025 - Paper Presentation</strong><br><small>JCT College of Engineering</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert11.jpg')">
+                <div><strong>ACET TECH FEST 2025</strong><br><small>Akshaya College of Engineering</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert12.jpg')">
+                <div><strong>Kathai Kaaviri Award</strong><br><small>Coimbatore Tamil Mandram</small></div>
+                <div class="cert-year">Apr</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert13.jpg')">
+                <div><strong>Tamil Mukil Virudhu</strong><br><small>Palladam-Vellore Muthamizh Sangamam</small></div>
+                <div class="cert-year">2025</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert14.jpg')">
+                <div><strong>ICT Academy Youth Talk Pre-finals</strong><br><small>ICT Academy / Rathinam Group</small></div>
+                <div class="cert-year">Sep</div>
+            </div>
+
+            <h3 class="cert-group-title">2026 Achievements</h3>
+            <div class="cert-item" onclick="openModal('cert15.jpg')">
+                <div><strong>NGI - Regional Hackathon</strong><br><small>Nehru Group of Institutions</small></div>
+                <div class="cert-year">Feb</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert16.jpg')">
+                <div><strong>EGSOW 2K26 Technical Fest</strong><br><small>Karpagam Academy of Higher Education</small></div>
+                <div class="cert-year">Feb</div>
+            </div>
+        </div>
+    </section>
+
+    <div id="certModal" class="modal" onclick="closeModal()">
+        <span class="close-btn">&times;</span>
+        <img id="modalImg" src="" alt="Certificate View">
+    </div>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <p>I am always eager to connect with fellow engineers, tech enthusiasts, and potential mentors!</p>
+        <div class="contact-details">
+            <div>📞 <strong>Phone:</strong> +91 8072863606</div>
+            <div>📧 <strong>Email:</strong> <a href="mailto:rvijayalakshmia@gmail.com">rvijayalakshmia@gmail.com</a></div>
+            <div>🔗 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">View My Profile</a></div>
+            <div>📍 <strong>Location:</strong> Coimbatore, Tamil Nadu.</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Vijayalakshmi .R | Arjun College of Technology</p>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-header" onclick="toggleChat()">
+            <span>🤖 Viji's Assistant</span>
+            <span id="chatToggleIcon">▲</span>
+        </div>
+        <div id="chatBodyWrapper">
+            <div class="chat-body" id="chatBox">
+                <div class="msg bot">Hi! I'm Vijayalakshmi's AI assistant. Ask me about her college, skills, or her 16 certificates!</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('certModal');
+        const modalImg = document.getElementById('modalImg');
+
+        function openModal(imageSrc) {
+            modal.style.display = 'flex';
+            modalImg.src = imageSrc; 
+        }
+        function closeModal() { modal.style.display = 'none'; }
+
+        // Chatbot Logic
+        function toggleChat() {
+            const wrapper = document.getElementById('chatBodyWrapper');
+            const icon = document.getElementById('chatToggleIcon');
+            if (wrapper.style.display === 'block') {
+                wrapper.style.display = 'none';
+                icon.innerText = '▲';
+            } else {
+                wrapper.style.display = 'block';
+                icon.innerText = '▼';
+            }
+        }
+
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const text = inputField.value.trim().toLowerCase();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            inputField.value = '';
+
+            setTimeout(() => {
+                let reply = "I'm still learning! Ask me about Viji's 'skills', 'college', 'certificates', or 'contact'.";
+                
+                if (text.includes('college') || text.includes('study')) {
+                    reply = "Viji is a 2nd-year Mechanical Engineering student at Arjun College of Technology in Coimbatore.";
+                } else if (text.includes('skill') || text.includes('tech')) {
+                    reply = "Her top skills are CAD modelling, welding tech, basic Java, AI concepts, and strong communication.";
+                } else if (text.includes('cert') || text.includes('award') || text.includes('hackathon')) {
+                    reply = "She is highly active! She holds 16 certificates from hackathons, paper presentations, and even a Radio Video Contest award from Magizhchi FM!";
+                } else if (text.includes('goal') || text.includes('future')) {
+                    reply = "She wants to be a versatile engineer merging mechanical principles with AI technology!";
+                } else if (text.includes('contact') || text.includes('phone') || text.includes('email')) {
+                    reply = "Reach her at +91 8072863606, email rvijayalakshmia@gmail.com, or via LinkedIn.";
+                } else if (text.includes('hello') || text.includes('hi')) {
+                    reply = "Hello there! What would you like to know about Vijayalakshmi?";
+                }
+
+                appendMessage(reply, 'bot');
+            }, 500);
+        }
+
+        function appendMessage(text, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg ${sender}`;
+            msgDiv.textContent = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight; 
+        }
+    </script>
+</body>
+</html>
