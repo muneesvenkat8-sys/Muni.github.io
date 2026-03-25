@@ -6,8 +6,8 @@
     <title>Vijayalakshmi R | Mechanical & AI Engineer</title>
     <style>
         :root {
-            --primary: #00e5ff; /* Neon Cyan */
-            --dark-bg: #050b14; /* Deep dark blue/black */
+            --primary: #00e5ff; 
+            --dark-bg: #050b14; 
             --card-bg: #111827;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
@@ -31,55 +31,50 @@
         }
         .fade-in-section.is-visible { opacity: 1; transform: none; }
         
-        /* ------------------------- */
-        /* HEADER & ANIMATIONS       */
-        /* ------------------------- */
+        /* HEADER & ANIMATIONS */
         header {
             position: relative;
-            padding: 6rem 2rem 5rem; 
+            padding: 5rem 2rem; 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden;
             border-bottom: 1px solid #1e293b;
-            min-height: 80vh;
+            min-height: 70vh;
+            overflow: hidden;
         }
 
-        /* Floating Stars/Particles Animation */
-        .stars {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-        }
+        /* Floating Stars */
+        .stars { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         .star {
             position: absolute; background: var(--primary); border-radius: 50%;
-            animation: float 5s infinite ease-in-out alternate;
-            opacity: 0.6;
+            animation: float 4s infinite ease-in-out alternate; opacity: 0.6;
         }
         @keyframes float {
             0% { transform: translateY(0px) scale(1); opacity: 0.3; }
-            100% { transform: translateY(-20px) scale(1.5); opacity: 1; }
+            100% { transform: translateY(-15px) scale(1.5); opacity: 1; }
         }
 
-        /* 3D Glowing Flip Card */
+        /* 3D Profile Flip Card (Fixed glitch) */
         .header-content { position: relative; z-index: 1; text-align: left; max-width: 800px; width: 100%; display: flex; flex-direction: column; align-items: center;}
         
         .flip-card {
-            background-color: transparent; width: 220px; height: 220px; perspective: 1000px; 
-            margin-bottom: 2.5rem; border-radius: 50%;
-            /* The Neon Glow */
-            box-shadow: 0 0 35px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.2);
-            animation: pulseGlow 3s infinite alternate;
+            background-color: transparent; width: 200px; height: 200px; perspective: 1000px; 
+            margin-bottom: 2rem;
         }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 25px rgba(0, 229, 255, 0.3); }
-            100% { box-shadow: 0 0 50px rgba(0, 229, 255, 0.6); }
-        }
-
         .flip-card-inner {
             position: relative; width: 100%; height: 100%; text-align: center;
-            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 50%;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); 
+            transform-style: preserve-3d; border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); /* Glow moved here */
         }
-        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        /* Flips cleanly on hover or touch */
+        .flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner { 
+            transform: rotateY(180deg); 
+        }
+        
         .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
             border-radius: 50%; border: 3px solid var(--primary); object-fit: cover;
+            background-color: var(--card-bg); /* Prevents transparent ghosting */
         }
         .flip-card-back { 
             transform: rotateY(180deg); 
@@ -87,93 +82,78 @@
         }
 
         /* Typography */
-        .intro-text { text-align: left; width: 100%; max-width: 600px; }
-        h1 { margin: 0; font-size: 3.5rem; color: var(--primary); line-height: 1.1; font-weight: 700; }
-        .tagline { color: var(--primary); font-size: 1.2rem; margin-top: 1rem; margin-bottom: 2rem; font-weight: 500; }
+        .intro-text { text-align: center; width: 100%; max-width: 600px; }
+        .intro-text h1 { margin: 0; font-size: 2.8rem; color: var(--primary); line-height: 1.2; font-weight: 700; }
+        .tagline { color: var(--text-main); font-size: 1.1rem; margin-top: 1rem; margin-bottom: 2rem; font-weight: 400; }
         
-        /* Blinking Cursor Effect */
-        .cursor { display: inline-block; width: 4px; height: 3.5rem; background-color: var(--primary); margin-left: 5px; vertical-align: bottom; animation: blink 1s step-end infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
         /* Header Buttons */
-        .header-buttons { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .header-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
         .btn-solid { background: var(--primary); color: #000; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s; border: 2px solid var(--primary); }
         .btn-solid:hover { background: transparent; color: var(--primary); box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
         .btn-outline { background: transparent; color: var(--primary); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 2px solid var(--primary); transition: all 0.3s; }
         .btn-outline:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
 
-        /* ------------------------- */
-        /* MAIN CONTENT SECTIONS     */
-        /* ------------------------- */
-        section { padding: 5rem 10%; }
+        /* MAIN SECTIONS */
+        section { padding: 4rem 10%; }
         section:nth-child(odd) { background-color: #07101d; }
         h2 { border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 0.3rem; margin-top: 0; color: white; }
         
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1.5rem; }
-        .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid #1e293b; transition: transform 0.3s, box-shadow 0.3s; color: var(--text-muted); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid #1e293b; color: var(--text-muted); }
         .card h3 { color: white; margin-top: 0; }
         .card strong { color: var(--primary); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: var(--primary); }
         
         .skills-list span {
             display: inline-block; background: transparent; color: var(--primary); padding: 0.5rem 1.2rem;
             border-radius: 25px; margin: 0.4rem 0.2rem; font-size: 0.95rem; font-weight: 600; 
-            border: 1px solid var(--primary); transition: all 0.3s;
+            border: 1px solid var(--primary); 
         }
-        .skills-list span:hover { background: var(--primary); color: #000; box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
 
-        /* Certificates Timeline (Dark Mode) */
-        .cert-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        /* Certificates Timeline */
+        .cert-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
         .cert-item {
             display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);
             padding: 1.2rem 1.5rem; border-radius: 8px; border: 1px solid #1e293b;
-            cursor: pointer; transition: all 0.3s; border-left: 4px solid #334155; color: var(--text-main);
+            cursor: pointer; border-left: 4px solid #334155; color: var(--text-main);
         }
         .cert-item small { color: var(--text-muted); }
-        .cert-item:hover { transform: translateY(-3px) scale(1.02); border-left: 4px solid var(--primary); background: #1e293b; }
         .cert-year { font-weight: bold; color: var(--primary); font-size: 1.2rem; min-width: 50px; text-align: right;}
         .cert-group-title { grid-column: 1 / -1; margin-top: 2rem; color: white; border-bottom: 1px solid #334155; padding-bottom: 5px;}
         
-        /* Modal for Viewing Certificates */
+        /* Modal */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9); z-index: 2000; justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 0.3s ease;
+            background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center;
         }
-        .modal.show { display: flex; opacity: 1; }
-        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(0,229,255,0.2); transform: scale(0.8); transition: transform 0.3s ease; }
-        .modal.show img { transform: scale(1); }
-        .close-btn { position: absolute; top: 20px; right: 40px; color: var(--primary); font-size: 3rem; cursor: pointer; transition: color 0.2s; }
-        .close-btn:hover { color: white; }
+        .modal.show { display: flex; }
+        /* Notice: Removed the dummy fallback so you know if your local file is missing! */
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 2px solid var(--primary); }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: var(--primary); font-size: 3rem; cursor: pointer; }
 
-        /* Contact Section */
-        .contact-box { background: var(--card-bg); padding: 2.5rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #1e293b; }
+        /* Contact Details (Ordered Vertically) */
+        .contact-box { background: var(--card-bg); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #1e293b; }
         .contact-details { display: flex; flex-direction: column; gap: 1.5rem; font-size: 1.1rem; }
         .contact-item { display: flex; align-items: center; gap: 1rem; }
-        .contact-icon { font-size: 1.5rem; background: #1e293b; border: 1px solid #334155; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s; }
-        .contact-item:hover .contact-icon { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,229,255,0.2); }
+        .contact-icon { font-size: 1.5rem; background: #1e293b; border: 1px solid #334155; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
         .contact-item a { color: var(--primary); text-decoration: none; font-weight: 600; }
-        .contact-item a:hover { text-decoration: underline; }
 
-        /* Chatbot (Dark Mode) */
+        /* Chatbot (Offset to the right bottom middle) */
         .chat-widget {
-            position: fixed; bottom: 20px; right: 20px; width: 300px; background: var(--card-bg);
-            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; z-index: 1000;
+            position: fixed; bottom: 25px; right: 5%; width: 300px; max-width: 90%; background: var(--card-bg);
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); overflow: hidden; z-index: 1000;
             border: 1px solid var(--primary);
         }
         .chat-header { 
-            background: rgba(0, 229, 255, 0.1); color: var(--primary); padding: 15px; font-weight: bold; 
+            background: rgba(0, 229, 255, 0.15); color: var(--primary); padding: 12px 15px; font-weight: bold; 
             cursor: pointer; display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid #1e293b;
         }
-        .chat-body { height: 280px; padding: 15px; overflow-y: auto; background: var(--dark-bg); display: flex; flex-direction: column; gap: 10px; }
+        .chat-body { height: 250px; padding: 15px; overflow-y: auto; background: var(--dark-bg); display: flex; flex-direction: column; gap: 10px; }
         .chat-input-area { display: flex; border-top: 1px solid #1e293b; background: var(--card-bg); }
         .chat-input-area input { flex: 1; padding: 12px; border: none; outline: none; background: transparent; color: white; font-size: 0.9rem; }
-        .chat-input-area input::placeholder { color: #64748b; }
-        .chat-input-area button { background: var(--primary); color: #000; border: none; padding: 12px 18px; cursor: pointer; font-weight: bold; transition: background 0.2s;}
-        .chat-input-area button:hover { background: white; }
+        .chat-input-area button { background: var(--primary); color: #000; border: none; padding: 12px 18px; cursor: pointer; font-weight: bold; }
         .msg { padding: 10px 14px; border-radius: 15px; max-width: 85%; font-size: 0.85rem; line-height: 1.4; }
-        .msg.bot { background: #1e293b; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #334155; }
+        .msg.bot { background: #1e293b; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; }
         .msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500;}
         #chatBodyWrapper { display: none; }
 
@@ -188,14 +168,14 @@
         <div class="header-content">
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <img src="viji-photo.jpeg" alt="Vijayalakshmi R" class="flip-card-front" onerror="this.src='https://placehold.co/400x400/00e5ff/000000?text=Your+Photo'">
-                    <img src="viji-photo.jpeg" alt="Avatar" class="flip-card-back" onerror="this.src='https://placehold.co/400x400/111827/00e5ff?text=Avatar'">
+                    <img src="viji-photo.jpeg" alt="Vijayalakshmi R" class="flip-card-front" onerror="this.src='https://placehold.co/400x400/00e5ff/000000?text=Missing+Photo'">
+                    <img src="viji-photo.jpeg" alt="Avatar" class="flip-card-back" onerror="this.src='https://placehold.co/400x400/111827/00e5ff?text=Missing+Avatar'">
                 </div>
             </div>
 
             <div class="intro-text">
-                <h1 style="font-weight: 300; font-size: 3rem;">Hi, I'm</h1>
-                <h1>Vijayalakshmi<br>R<span class="cursor"></span></h1>
+                <h1 style="font-weight: 300; font-size: 2rem; color: white;">Hi, I'm</h1>
+                <h1>Vijayalakshmi R</h1>
                 <p class="tagline">2nd Year Mechanical Engineering Student</p>
                 
                 <div class="header-buttons">
@@ -214,15 +194,15 @@
             <div class="card">
                 <h3>🎯 Career Goals</h3>
                 <p><strong>Short-Term:</strong> To excel in my mechanical engineering studies, master advanced CAD tools, and actively participate in technical symposiums.</p>
-                <p><strong>Long-Term:</strong> To become a versatile, industry-leading engineer who seamlessly merges traditional mechanical principles with AI technology to create smart, automated systems.</p>
+                <p><strong>Long-Term:</strong> To become a versatile, industry-leading engineer who seamlessly merges traditional mechanical principles with AI technology.</p>
             </div>
             <div class="card">
                 <h3>🎨 Hobbies</h3>
-                <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>Organizing core engineering events</li>
-                    <li>Learning CATIA & designing courses</li>
-                    <li>Book reading</li>
-                    <li>Socializing and networking</li>
+                <ul style="list-style-type: none; padding-left: 0; line-height: 2;">
+                    <li>⚙️ Organizing core engineering events</li>
+                    <li>💻 Learning CATIA & designing courses</li>
+                    <li>📚 Book reading</li>
+                    <li>🤝 Socializing and networking</li>
                 </ul>
             </div>
         </div>
@@ -241,7 +221,7 @@
 
     <section id="certificates" class="fade-in-section">
         <h2>My Certifications Gallery</h2>
-        <p style="color: var(--text-muted);">Click any tile below to view the certificate document!</p>
+        <p style="color: var(--text-muted);">Tap any tile below to view the certificate.</p>
         
         <div class="cert-container">
             <h3 class="cert-group-title">2024 Achievements</h3>
@@ -250,7 +230,7 @@
                 <div class="cert-year">Oct</div>
             </div>
             <div class="cert-item" onclick="openModal('cert2.jpg')">
-                <div><strong>SHOCKAERONZ'24 Symposium</strong><br><small>Hindusthan College of Engineering</small></div>
+                <div><strong>SHOCKAERONZ'24 Symposium</strong><br><small>Hindusthan College</small></div>
                 <div class="cert-year">Oct</div>
             </div>
             <div class="cert-item" onclick="openModal('cert3.jpg')">
@@ -258,11 +238,11 @@
                 <div class="cert-year">Oct</div>
             </div>
             <div class="cert-item" onclick="openModal('cert4.jpg')">
-                <div><strong>Welding Technology Workshop</strong><br><small>SSI Technical Training Institute</small></div>
+                <div><strong>Welding Technology Workshop</strong><br><small>SSI Technical Institute</small></div>
                 <div class="cert-year">Nov</div>
             </div>
             <div class="cert-item" onclick="openModal('cert5.jpg')">
-                <div><strong>Math Magician's Day 2k24</strong><br><small>Arjun College of Technology</small></div>
+                <div><strong>Math Magician's Day 2k24</strong><br><small>Arjun College of Tech</small></div>
                 <div class="cert-year">Dec</div>
             </div>
 
@@ -272,19 +252,19 @@
                 <div class="cert-year">Feb</div>
             </div>
             <div class="cert-item" onclick="openModal('cert7.jpg')">
-                <div><strong>KiTE Odyssey 25 - Connection</strong><br><small>KGISL Institute of Technology</small></div>
+                <div><strong>KiTE Odyssey 25 - Connection</strong><br><small>KGISL Institute of Tech</small></div>
                 <div class="cert-year">Mar</div>
             </div>
             <div class="cert-item" onclick="openModal('cert8.jpg')">
-                <div><strong>KiTE Odyssey 25 - Elocution</strong><br><small>KGISL Institute of Technology</small></div>
+                <div><strong>KiTE Odyssey 25 - Elocution</strong><br><small>KGISL Institute of Tech</small></div>
                 <div class="cert-year">Mar</div>
             </div>
             <div class="cert-item" onclick="openModal('cert9.jpg')">
-                <div><strong>KiTE Odyssey 25 - Participation</strong><br><small>KGISL Institute of Technology</small></div>
+                <div><strong>KiTE Odyssey 25 - Participation</strong><br><small>KGISL Institute of Tech</small></div>
                 <div class="cert-year">Mar</div>
             </div>
             <div class="cert-item" onclick="openModal('cert10.jpg')">
-                <div><strong>Jfinagles 2025 - Paper Presentation</strong><br><small>JCT College of Engineering</small></div>
+                <div><strong>Jfinagles 2025</strong><br><small>JCT College of Eng</small></div>
                 <div class="cert-year">Mar</div>
             </div>
             <div class="cert-item" onclick="openModal('cert11.jpg')">
@@ -318,7 +298,7 @@
 
     <div id="certModal" class="modal" onclick="closeModal()">
         <span class="close-btn">&times;</span>
-        <img id="modalImg" src="" alt="Certificate View" onerror="this.src='https://placehold.co/800x600/111827/00e5ff?text=Add+Certificate+Image'">
+        <img id="modalImg" src="" alt="Missing Image - Make sure you saved your certificates as cert1.jpg, cert2.jpg etc. in the same folder!">
     </div>
 
     <section id="contact" class="fade-in-section">
@@ -328,7 +308,7 @@
         <div class="contact-box">
             <div class="contact-details">
                 <div class="contact-item">
-                    <div class="contact-icon">📞</div>
+                    <div class="contact-icon">📱</div>
                     <div><strong>Phone:</strong> +91 8072863606</div>
                 </div>
                 <div class="contact-item">
@@ -368,49 +348,38 @@
     </div>
 
     <script>
-        // 1. Generate Floating Stars Background
+        // Floating Stars
         const starContainer = document.getElementById('star-container');
-        for(let i = 0; i < 20; i++) {
+        for(let i = 0; i < 25; i++) {
             let star = document.createElement('div');
             star.className = 'star';
-            let size = Math.random() * 4 + 2; // Size between 2px and 6px
+            let size = Math.random() * 4 + 2; 
             star.style.width = size + 'px';
             star.style.height = size + 'px';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
             star.style.animationDelay = Math.random() * 5 + 's';
-            star.style.opacity = Math.random() * 0.5 + 0.2;
             starContainer.appendChild(star);
         }
 
-        // 2. Scroll Animation Logic
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+                    obs.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
-        });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-section').forEach(sec => observer.observe(sec));
 
-        // 3. Certificate Modal Logic
+        // Modal Logic
         const modal = document.getElementById('certModal');
         const modalImg = document.getElementById('modalImg');
+        function openModal(imageSrc) { modal.classList.add('show'); modalImg.src = imageSrc; }
+        function closeModal() { modal.classList.remove('show'); setTimeout(() => modalImg.src = '', 300); }
 
-        function openModal(imageSrc) {
-            modal.classList.add('show');
-            modalImg.src = imageSrc; 
-        }
-        function closeModal() { 
-            modal.classList.remove('show'); 
-            setTimeout(() => { modalImg.src = ''; }, 300); 
-        }
-
-        // 4. Advanced Chatbot Logic
+        // Chatbot Logic
         function toggleChat() {
             const wrapper = document.getElementById('chatBodyWrapper');
             const icon = document.getElementById('chatToggleIcon');
@@ -422,9 +391,7 @@
                 icon.innerText = '▼';
             }
         }
-
         function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
-
         function sendMessage() {
             const inputField = document.getElementById('userInput');
             const text = inputField.value.trim().toLowerCase();
@@ -434,37 +401,22 @@
             inputField.value = '';
 
             setTimeout(() => {
-                let reply = "That's interesting! If you want specific info, try asking about her 'skills', 'college', 'certificates', or say 'tell me about her'.";
+                let reply = "Try asking about her 'skills', 'college', 'certificates', or say 'tell me about her'.";
+                if (text.includes('bye')) reply = "Goodbye! Have a great day! 🌟";
+                else if (text.includes('about')) reply = "She is a 2nd-year Mechanical Engineering student blending mechanics with AI!";
+                else if (text.includes('college')) reply = "She studies at Arjun College of Technology in Coimbatore.";
+                else if (text.includes('skill')) reply = "Top skills: CAD, welding, Java, and AI concepts.";
+                else if (text.includes('cert') || text.includes('award')) reply = "She holds 16 certificates across technical events and workshops.";
+                else if (text.includes('contact') || text.includes('phone')) reply = "Call +91 8072863606 or email rvijayalakshmia@gmail.com.";
                 
-                if (text.includes('bye') || text.includes('goodbye') || text.includes('see you')) {
-                    reply = "Goodbye! Have a wonderful day! 🌟";
-                } else if (text === 'about her' || text.includes('who is') || text.includes('tell me about')) {
-                    reply = "Vijayalakshmi is a passionate 2nd-year Mechanical Engineering student at Arjun College of Technology. She uniquely blends mechanical systems with AI innovations!";
-                } else if (text.includes('college') || text.includes('study') || text.includes('degree')) {
-                    reply = "She studies at Arjun College of Technology in Coimbatore, majoring in Mechanical Engineering.";
-                } else if (text.includes('skill') || text.includes('tech') || text.includes('java') || text.includes('cad')) {
-                    reply = "Her top skills are CAD modelling, welding tech, basic Java, AI concepts, and strong communication.";
-                } else if (text.includes('cert') || text.includes('award') || text.includes('prize')) {
-                    reply = "She is an overachiever! She holds 16 certificates including the Magizhchi Magudam Award and the Kathai Kaaviri Award.";
-                } else if (text.includes('goal') || text.includes('future') || text.includes('aim')) {
-                    reply = "Her goal is to be a versatile engineer who merges traditional mechanical principles with AI technology to create smart systems.";
-                } else if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('number')) {
-                    reply = "You can call her at +91 8072863606 or email her at rvijayalakshmia@gmail.com.";
-                } else if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
-                    reply = "Hello there! I am ready to answer your questions about Vijayalakshmi.";
-                }
-
                 appendMessage(reply, 'bot');
             }, 600);
         }
-
         function appendMessage(text, sender) {
             const chatBox = document.getElementById('chatBox');
             const msgDiv = document.createElement('div');
-            msgDiv.className = `msg ${sender}`;
-            msgDiv.textContent = text;
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight; 
+            msgDiv.className = `msg ${sender}`; msgDiv.textContent = text;
+            chatBox.appendChild(msgDiv); chatBox.scrollTop = chatBox.scrollHeight; 
         }
     </script>
 </body>
