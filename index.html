@@ -348,7 +348,7 @@
         </div>
         <div id="chatBodyWrapper">
             <div class="chat-body" id="chatBox">
-                <div class="msg bot">Hi! I'm Viji's virtual assistant. Ask me anything about her!</div>
+                <div class="msg bot">Hii... Hlo! I'm Viji's AI. Viji pathi enna details venum kelunga! ✨</div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
@@ -389,7 +389,7 @@
         function openModal(imageSrc) { modal.classList.add('show'); modalImg.src = imageSrc; }
         function closeModal() { modal.classList.remove('show'); setTimeout(() => modalImg.src = '', 300); }
 
-        // Advanced Chatbot Logic
+        // Advanced Tanglish Chatbot Logic
         function toggleChat() {
             const wrapper = document.getElementById('chatBodyWrapper');
             const icon = document.getElementById('chatToggleIcon');
@@ -402,6 +402,7 @@
             }
         }
         function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        
         function sendMessage() {
             const inputField = document.getElementById('userInput');
             const text = inputField.value.trim().toLowerCase();
@@ -411,37 +412,53 @@
             inputField.value = '';
 
             setTimeout(() => {
-                let reply = "I'm still learning! Try asking about her 'skills', 'college', 'certificates', or 'contact details'.";
+                let reply = "Enaku puriyala da! Viji yoda 'skills', 'college', 'certificates', illa 'contact' pathi kelu. Viji pathi extra unnga suggestion enna?";
                 
-                // Prioritize specific intents FIRST so they aren't overridden by general words like "about"
-                if (text.includes('phone') || text.includes('number') || text.includes('call') || text.includes('mobile')) {
-                    reply = "You can call Viji at +91 8072863606.";
-                } else if (text.includes('mail') || text.includes('email') || text.includes('gmail')) {
-                    reply = "You can email her at rvijayalakshmia@gmail.com.";
-                } else if (text.includes('contact') || text.includes('reach') || text.includes('linkedin')) {
-                    reply = "You can call her at +91 8072863606, email rvijayalakshmia@gmail.com, or connect on LinkedIn!";
-                } else if (text.includes('cert') || text.includes('award') || text.includes('prize') || text.includes('achieve')) {
-                    reply = "She holds an impressive 19 certificates from technical events, workshops, and hackathons!";
-                } else if (text.includes('skill') || text.includes('tech') || text.includes('java') || text.includes('cad')) {
-                    reply = "Her top skills are CAD modelling, welding tech, basic Java, AI concepts, and strong communication.";
-                } else if (text.includes('college') || text.includes('study') || text.includes('degree') || text.includes('where')) {
-                    reply = "She is studying Mechanical Engineering at Arjun College of Technology in Coimbatore.";
-                } else if (text.includes('goal') || text.includes('future') || text.includes('aim') || text.includes('plan')) {
-                    reply = "She aims to be a versatile engineer who merges traditional mechanical principles with AI technology.";
-                } else if (text.includes('hobby') || text.includes('hobbies') || text.includes('free time')) {
-                    reply = "She loves organizing events, learning CATIA, reading books, and socializing.";
-                } else if (text.includes('about') || text.includes('who is') || text.includes('profile')) {
-                    // "About" is checked later now, so "tell about phone number" catches the phone logic first!
-                    reply = "Vijayalakshmi is a 2nd-year Mechanical Engineering student who uniquely blends mechanical systems with AI innovations!";
-                } else if (text.match(/\b(hi|hii|hiii|hello|hey|heyy)\b/)) {
-                    reply = "Hello there! How can I help you learn more about Vijayalakshmi today? ✨";
-                } else if (text.includes('bye') || text.includes('cya') || text.includes('goodbye')) {
-                    reply = "Goodbye! Have a fantastic day! 🚀";
+                // Greeting
+                if (text.match(/\b(hi|hii|hiii|hello|hlo|hey|heyy|vanakkam)\b/)) {
+                    reply = "Hii... Hlo! Viji pathi ungaluku enna details venum? Kelunga na solren! ✨ Viji pathi extra unngaloda suggestion enna?";
+                } 
+                // Self Identity
+                else if (text.includes('who are you') || text.includes('nee yar') || text.includes('unna pathi') || text.includes('un name') || text.includes('who u r')) {
+                    reply = "Naan Viji yoda personal AI assistant da! 🤖 Viji yoda skills, certificates, goals ellam enaku theriyum. Viji pathi extra unngaloda suggestion enna nu sollunga?";
+                }
+                // Contact Details
+                else if (text.includes('phone') || text.includes('number') || text.includes('call') || text.includes('mail') || text.includes('email') || text.includes('contact') || text.includes('epdi pesurathu')) {
+                    reply = "Itho show pandren: Phone +91 8072863606, Email rvijayalakshmia@gmail.com. Kandippa contact pannunga! Unnga suggestion edhavathu irukka?";
+                } 
+                // Certificates
+                else if (text.includes('cert') || text.includes('award') || text.includes('show') || text.includes('kattu') || text.includes('kammintu')) {
+                    reply = "Itho show pandren! Viji total ah 19 certificates vangirukanga! Hackathon, paper presentation, workshops nu kalakkirukanga. Viji pathi extra unnga suggestion enna?";
+                } 
+                // Skills
+                else if (text.includes('skill') || text.includes('tech') || text.includes('java') || text.includes('cad') || text.includes('theriyum') || text.includes('thiramai')) {
+                    reply = "Viji ku CAD modelling, welding tech, basic Java, AI concepts, and strong communication skills irukku da. Vera enna therinkanum?";
+                } 
+                // College
+                else if (text.includes('college') || text.includes('study') || text.includes('padikiranga') || text.includes('degree')) {
+                    reply = "Viji Coimbatore la irukka Arjun College of Technology la 2nd-year Mechanical Engineering padikuranga.";
+                } 
+                // Goals
+                else if (text.includes('goal') || text.includes('future') || text.includes('aim') || text.includes('latchiyam')) {
+                    reply = "Traditional mechanical principles kooda AI technology ah merge panni oru smart engineer aaganum ngurathu thaan Viji yoda aim!";
+                } 
+                // Hobbies
+                else if (text.includes('hobby') || text.includes('hobbies') || text.includes('free time') || text.includes('vettiya')) {
+                    reply = "Event organize pandrathu, CATIA design, books read pandrathu ellam thaan Viji yoda hobbies.";
+                }
+                // About
+                else if (text.includes('about') || text.includes('who is') || text.includes('viji pathi') || text.includes('details')) {
+                    reply = "Viji oru 2nd-year Mechanical Engineering student. Mechanical systems and AI innovations la romba interest! Viji pathi extra unngaloda suggestion enna?";
+                } 
+                // Goodbye
+                else if (text.includes('bye') || text.includes('tata') || text.includes('poitu') || text.includes('see you')) {
+                    reply = "viji details pathi unnga doubts clear ahhirukum nu nenikuren have a good day bye";
                 }
                 
                 appendMessage(reply, 'bot');
             }, 600);
         }
+        
         function appendMessage(text, sender) {
             const chatBox = document.getElementById('chatBox');
             const msgDiv = document.createElement('div');
