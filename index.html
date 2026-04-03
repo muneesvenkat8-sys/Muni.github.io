@@ -1,282 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prem's Portfolio</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    /* Background for your main portfolio site */
-    body {
-      background-color: #f4f7f6;
-      height: 100vh;
-      padding: 50px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijayalakshmi R | Mechanical & AI Engineer</title>
+    <style>
+        :root {
+            --primary: #00e5ff; 
+            --dark-bg: #050b14; 
+            --card-bg: #111827;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; 
+            background-color: var(--dark-bg); 
+            color: var(--text-main); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Smooth Scroll & Fade Animations */
+        html { scroll-behavior: smooth; }
+        .fade-in-section {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible { opacity: 1; transform: none; }
+        
+        /* HEADER & ANIMATIONS */
+        header {
+            position: relative;
+            padding: 5rem 2rem; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-bottom: 1px solid #1e293b;
+            min-height: 70vh;
+            overflow: hidden;
+        }
 
-    /* Floating Chat Button */
-    #chat-toggle-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 60px;
-      height: 60px;
-      background-color: #4e4376;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-      z-index: 1000;
-    }
+        /* Floating Stars */
+        .stars { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .star {
+            position: absolute; background: var(--primary); border-radius: 50%;
+            animation: float 4s infinite ease-in-out alternate; opacity: 0.6;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); opacity: 0.3; }
+            100% { transform: translateY(-15px) scale(1.5); opacity: 1; }
+        }
 
-    #chat-toggle-btn:hover {
-      transform: scale(1.1);
-    }
+        /* 3D Profile Flip Card */
+        .header-content { position: relative; z-index: 1; text-align: left; max-width: 800px; width: 100%; display: flex; flex-direction: column; align-items: center;}
+        
+        .flip-card {
+            background-color: transparent; width: 200px; height: 200px; perspective: 1000px; 
+            margin-bottom: 2rem;
+        }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); 
+            transform-style: preserve-3d; border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); 
+        }
+        .flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner { 
+            transform: rotateY(180deg); 
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 50%; border: 3px solid var(--primary); object-fit: cover;
+            background-color: var(--card-bg); 
+        }
+        .flip-card-back { 
+            transform: rotateY(180deg); 
+            filter: contrast(1.2) saturate(1.5) sepia(0.3) hue-rotate(-10deg);
+        }
 
-    /* Chat Container - Hidden by default */
-    .chat-container {
-      display: none; /* Hides the chat initially */
-      position: fixed;
-      bottom: 100px;
-      right: 30px;
-      width: 350px;
-      max-height: 500px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      flex-direction: column;
-      overflow: hidden;
-      z-index: 1000;
-    }
+        /* Typography & Typing Animation */
+        .intro-text { text-align: center; width: 100%; max-width: 600px; }
+        .intro-text h1 { margin: 0; font-size: 2.8rem; color: var(--primary); line-height: 1.2; font-weight: 700; }
+        
+        /* The Typing Effect */
+        .typewriter-container { display: inline-block; margin-top: 1rem; margin-bottom: 2rem; }
+        .typewriter-text {
+            color: var(--text-main); font-size: 1.1rem; font-weight: 400;
+            overflow: hidden; white-space: nowrap; margin: 0 auto;
+            border-right: 2px solid var(--primary);
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--primary); } }
+        
+        /* Header Buttons */
+        .header-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-solid { background: var(--primary); color: #000; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s; border: 2px solid var(--primary); }
+        .btn-solid:hover { background: transparent; color: var(--primary); box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
+        .btn-outline { background: transparent; color: var(--primary); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 2px solid var(--primary); transition: all 0.3s; }
+        .btn-outline:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
+        
+        /* Special Download Resume Button */
+        .btn-resume { background: transparent; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 2px solid #334155; transition: all 0.3s; display: flex; align-items: center; gap: 8px;}
+        .btn-resume:hover { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 229, 255, 0.2); }
 
-    .chat-header {
-      background: linear-gradient(to right, #2b5876, #4e4376);
-      color: white;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        /* MAIN SECTIONS */
+        section { padding: 4rem 10%; }
+        section:nth-child(odd) { background-color: #07101d; }
+        h2 { border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 0.3rem; margin-top: 0; color: white; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid #1e293b; color: var(--text-muted); }
+        .card h3 { color: white; margin-top: 0; }
+        .card strong { color: var(--primary); }
+        
+        /* Animated Skills Progress Bars */
+        .skills-wrapper { max-width: 800px; margin: 2rem auto 0; }
+        .skill-box { margin-bottom: 1.5rem; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-main); }
+        .skill-bar-bg { width: 100%; height: 10px; background-color: #1e293b; border-radius: 5px; overflow: hidden; }
+        .skill-bar-fill { height: 100%; background: linear-gradient(90deg, #0284c7, var(--primary)); border-radius: 5px; width: 0; transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1); }
 
-    .close-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
+        /* Certificates Timeline */
+        .cert-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .cert-item {
+            display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);
+            padding: 1.2rem 1.5rem; border-radius: 8px; border: 1px solid #1e293b;
+            cursor: pointer; border-left: 4px solid #334155; color: var(--text-main);
+        }
+        .cert-item small { color: var(--text-muted); }
+        .cert-year { font-weight: bold; color: var(--primary); font-size: 1.2rem; min-width: 50px; text-align: right;}
+        .cert-group-title { grid-column: 1 / -1; margin-top: 2rem; color: white; border-bottom: 1px solid #334155; padding-bottom: 5px;}
+        
+        /* Modal */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .modal.show { display: flex; }
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 2px solid var(--primary); }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: var(--primary); font-size: 3rem; cursor: pointer; }
 
-    .chat-box {
-      height: 350px;
-      padding: 15px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      background-color: #fafafa;
-    }
+        /* Contact Details */
+        .contact-box { background: var(--card-bg); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #1e293b; }
+        .contact-details { display: flex; flex-direction: column; gap: 1.5rem; font-size: 1.1rem; }
+        .contact-item { display: flex; align-items: center; gap: 1rem; }
+        .contact-icon { font-size: 1.5rem; background: #1e293b; border: 1px solid #334155; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .contact-item a { color: var(--primary); text-decoration: none; font-weight: 600; }
 
-    .message {
-      max-width: 85%;
-      padding: 10px 15px;
-      border-radius: 15px;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-
-    .bot-message {
-      background-color: #e9ecef;
-      color: #333;
-      align-self: flex-start;
-      border-bottom-left-radius: 0;
-    }
-
-    .user-message {
-      background-color: #4e4376;
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 0;
-    }
-
-    .chat-input-container {
-      display: flex;
-      padding: 10px;
-      background: #fff;
-      border-top: 1px solid #ddd;
-    }
-
-    #user-input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      outline: none;
-      font-size: 0.9rem;
-    }
-
-    #send-btn {
-      background-color: #4e4376;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      margin-left: 8px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
+        /* Chatbot */
+        .chat-widget {
+            position: fixed; bottom: 25px; right: 5%; width: 300px; max-width: 90%; background: var(--card-bg);
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); overflow: hidden; z-index: 1000;
+            border: 1px solid var(--primary); display: flex; flex-direction: column;
+        }
+        .chat-header { 
+            background: rgba(0, 229, 255, 0.15); color: var(--primary); padding: 12px 15px; font-weight: bold; 
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+        .chat-body { height: 250px; padding: 15px; overflow-y: auto; background: var(--dark-bg); display: flex; flex-direction: column; gap: 10px; }
+        .chat-input-area { display: flex; border-top: 1px solid #1e293b; background: var(--card-bg); }
+        .chat-input-area input { flex: 1; padding: 12px; border: none; outline: none; background: transparent; color: white; font-size: 0.9rem; }
+        .chat-input-area button { background: var(--primary); color: #000; border: none; padding: 12px 18px; cursor: pointer; font-weight: bold; }
+        .msg { padding: 10px 14px; border-radius: 15px; max-width: 85%; font-size: 0.85rem; line-height: 1.4; }
+        .msg.bot { background: #1e293b; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; }
+        .msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500;}
+        
+        /* Typing Indicator Animation */
+        .typing-indicator { display: none; align-self: flex-start; background: #1e293b; padding: 10px 14px; border-radius: 15px; border-bottom-left-radius: 2px; margin-bottom: 10px;}
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: var(--primary); border-radius: 50%; margin: 0 2px; animation: typing-dot 1.4s infinite ease-in-out both; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing-dot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        #chatBodyWrapper { display: none; }
+        footer { text-align: center; padding: 2rem; background: #030712; color: var(--text-muted); border-top: 1px solid #1e293b; }
+    </style>
 </head>
 <body>
 
-  <h1>Welcome to Prem's Portfolio Website</h1>
-  <p>Look at the bottom right corner to interact with the assistant!</p>
+    <header class="fade-in-section">
+        <div class="stars" id="star-container"></div>
+        <div class="header-content">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <img src="viji-photo.jpeg" alt="Vijayalakshmi R" class="flip-card-front" onerror="this.src='https://placehold.co/400x400/00e5ff/000000?text=Missing+Photo'">
+                    <img src="viji-photo.jpeg" alt="Avatar" class="flip-card-back" onerror="this.src='https://placehold.co/400x400/111827/00e5ff?text=Missing+Avatar'">
+                </div>
+            </div>
+            <div class="intro-text">
+                <h1 style="font-weight: 300; font-size: 2rem; color: white;">Hi, I'm</h1>
+                <h1>Vijayalakshmi R</h1>
+                <div class="typewriter-container">
+                    <div class="typewriter-text">2nd Year Mechanical Engineering Student</div>
+                </div>
+                <div class="header-buttons">
+                    <a href="#contact" class="btn-solid">Get In Touch</a>
+                    <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326" target="_blank" class="btn-outline">LinkedIn</a>
+                    <a href="viji-resume.pdf" target="_blank" download class="btn-resume">📄 Download CV</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <button id="chat-toggle-btn">💬</button>
+    <section id="about" class="fade-in-section">
+        <h2>About Me</h2>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">I am a passionate second-year Mechanical Engineering student at Arjun College of Technology in Coimbatore. My true fascination lies at the intersection of traditional mechanical systems and cutting-edge artificial intelligence. With a solid foundation in core mechanics like CAD modeling and welding technologies, paired with a growing expertise in Java and AI concepts, I am dedicated to building the smart engineering solutions of tomorrow.</p>
+        <div class="grid-container">
+            <div class="card">
+                <h3>🚀 Career Goals</h3>
+                <p><strong>Short-Term:</strong> To excel in my mechanical engineering studies, master advanced CAD tools, and actively participate in technical symposiums.</p>
+                <p><strong>Long-Term:</strong> To become a versatile, industry-leading engineer who seamlessly merges traditional mechanical principles with AI technology.</p>
+            </div>
+            <div class="card">
+                <h3>✨ Hobbies</h3>
+                <ul style="list-style-type: none; padding-left: 0; line-height: 2;">
+                    <li>🛠️ Organizing core engineering events</li>
+                    <li>📐 Learning CATIA & designing courses</li>
+                    <li>📖 Book reading</li>
+                    <li>🌐 Socializing and networking</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-  <div class="chat-container" id="chat-container">
-    <div class="chat-header">
-      Prem's Assistant
-      <button class="close-btn" id="close-btn">✖</button>
+    <section id="skills" class="fade-in-section">
+        <h2>Technical Expertise</h2>
+        <div class="skills-wrapper">
+            <div class="skill-box">
+                <div class="skill-info"><span>CAD Modelling & CATIA</span><span>90%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>Welding Technologies</span><span>85%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>Basic Java Programming</span><span>75%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>AI Concepts</span><span>70%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>Effective Communication</span><span>95%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95%"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates" class="fade-in-section">
+        <h2>My Certifications Gallery</h2>
+        <p style="color: var(--text-muted);">Tap any tile below to view the certificate.</p>
+        <div class="cert-container">
+            <h3 class="cert-group-title">2024 Achievements</h3>
+            <div class="cert-item" onclick="openModal('cert1.jpg')"><div><strong>MXCEL-2K24 Symposium</strong><br><small>Kongu Engineering College</small></div><div class="cert-year">Oct</div></div>
+            <div class="cert-item" onclick="openModal('cert2.jpg')"><div><strong>SHOCKAERONZ'24 Symposium</strong><br><small>Hindusthan College</small></div><div class="cert-year">Oct</div></div>
+            <div class="cert-item" onclick="openModal('cert3.jpg')"><div><strong>EBG Socio-Innovation Summit</strong><br><small>EBG Summit Coimbatore</small></div><div class="cert-year">Oct</div></div>
+            <div class="cert-item" onclick="openModal('cert4.jpg')"><div><strong>Welding Technology Workshop</strong><br><small>SSI Technical Institute</small></div><div class="cert-year">Nov</div></div>
+            <div class="cert-item" onclick="openModal('cert5.jpg')"><div><strong>Math Magician's Day 2k24</strong><br><small>Arjun College of Tech</small></div><div class="cert-year">Dec</div></div>
+
+            <h3 class="cert-group-title">2025 Achievements</h3>
+            <div class="cert-item" onclick="openModal('cert6.jpg')"><div><strong>Magizhchi Magudam Award</strong><br><small>Magizhchi FM</small></div><div class="cert-year">Feb</div></div>
+            <div class="cert-item" onclick="openModal('cert7.jpg')"><div><strong>KiTE Odyssey 25 - Connection</strong><br><small>KGISL Institute of Tech</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert8.jpg')"><div><strong>KiTE Odyssey 25 - Elocution</strong><br><small>KGISL Institute of Tech</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert9.jpg')"><div><strong>KiTE Odyssey 25 - Participation</strong><br><small>KGISL Institute of Tech</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert10.jpg')"><div><strong>Jfinagles 2025</strong><br><small>JCT College of Eng</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert11.jpg')"><div><strong>ACET TECH FEST 2025</strong><br><small>Akshaya College</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert12.jpg')"><div><strong>Kathai Kaaviri Award</strong><br><small>Coimbatore Tamil Mandram</small></div><div class="cert-year">Apr</div></div>
+            <div class="cert-item" onclick="openModal('cert14.jpg')"><div><strong>ICT Academy Youth Talk</strong><br><small>Rathinam Group</small></div><div class="cert-year">Sep</div></div>
+            <div class="cert-item" onclick="openModal('cert20.jpg')"><div><strong>Fluid Mechanics Quiz (87%)</strong><br><small>Arjun College of Technology</small></div><div class="cert-year">Oct</div></div>
+            <div class="cert-item" onclick="openModal('cert21.jpg')"><div><strong>Fluid Mechanics Quiz Part 2 (80%)</strong><br><small>Arjun College of Technology</small></div><div class="cert-year">Oct</div></div>
+            <div class="cert-item" onclick="openModal('cert22.jpg')"><div><strong>Fluid Mechanics Quiz (80%)</strong><br><small>Arjun College of Technology</small></div><div class="cert-year">Oct</div></div>
+            <div class="cert-item" onclick="openModal('cert13.jpg')"><div><strong>Tamil Mukil Virudhu</strong><br><small>Palladam-Vellore Sangamam</small></div><div class="cert-year">2025</div></div>
+
+            <h3 class="cert-group-title">2026 Achievements</h3>
+            <div class="cert-item" onclick="openModal('cert15.jpg')"><div><strong>NGI - Regional Hackathon</strong><br><small>Nehru Group of Institutions</small></div><div class="cert-year">Feb</div></div>
+            <div class="cert-item" onclick="openModal('cert16.jpg')"><div><strong>EGSOW 2K26 Technical Fest</strong><br><small>Karpagam Academy</small></div><div class="cert-year">Feb</div></div>
+            <div class="cert-item" onclick="openModal('cert17.jpg')"><div><strong>100% Attendance (2025-26)</strong><br><small>Arjun College of Technology</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert18.jpg')"><div><strong>SARVAM 2026 Fest (Event 1)</strong><br><small>EASA College of Engineering</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert19.jpg')"><div><strong>SARVAM 2026 Fest (Event 2)</strong><br><small>EASA College of Engineering</small></div><div class="cert-year">Mar</div></div>
+            <div class="cert-item" onclick="openModal('cert23.jpg')"><div><strong>The Quiet Power Quiz</strong><br><small>Mahindra / Breath Beings</small></div><div class="cert-year">2026</div></div>
+        </div>
+    </section>
+
+    <div id="certModal" class="modal" onclick="closeModal()">
+        <span class="close-btn">&times;</span>
+        <img id="modalImg" src="" alt="Missing Image">
     </div>
-    <div class="chat-box" id="chat-box">
-      <div class="message bot-message">
-        Vanakkam! Ask me about Prem's skills, projects, events, or type 'certificates' to see his full list!
-      </div>
+
+    <section id="contact" class="fade-in-section">
+        <h2>Get In Touch</h2>
+        <p style="color: var(--text-muted);">Let's connect! I am always open to discussing engineering, AI, or new opportunities.</p>
+        <div class="contact-box">
+            <div class="contact-details">
+                <div class="contact-item"><div class="contact-icon">📞</div><div><strong>Phone:</strong> +91 8072863606</div></div>
+                <div class="contact-item"><div class="contact-icon">✉️</div><div><strong>Email:</strong> <a href="mailto:rvijayalakshmia@gmail.com">rvijayalakshmia@gmail.com</a></div></div>
+                <div class="contact-item"><div class="contact-icon">💼</div><div><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326" target="_blank">Connect with me</a></div></div>
+                <div class="contact-item"><div class="contact-icon">📌</div><div><strong>Location:</strong> Coimbatore, Tamil Nadu.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Vijayalakshmi R | Arjun College of Technology</p>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-header" onclick="toggleChat()">
+            <span>👩‍💻 Ask Viji's AI</span>
+            <span id="chatToggleIcon">▲</span>
+        </div>
+        <div id="chatBodyWrapper">
+            <div class="chat-body" id="chatBox">
+                <div class="msg bot">Hello! Vaada, Viji pathi edhu venumnalum kelu, na pakka va solren! ✨</div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
     </div>
-    <div class="chat-input-container">
-      <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off">
-      <button id="send-btn">Send</button>
-    </div>
-  </div>
 
-  <script>
-    // --- Toggle Chatbot Visibility ---
-    const chatBtn = document.getElementById('chat-toggle-btn');
-    const closeBtn = document.getElementById('close-btn');
-    const chatContainer = document.getElementById('chat-container');
-
-    chatBtn.addEventListener('click', () => {
-      chatContainer.style.display = 'flex';
-      chatBtn.style.display = 'none';
-    });
-
-    closeBtn.addEventListener('click', () => {
-      chatContainer.style.display = 'none';
-      chatBtn.style.display = 'block';
-    });
-
-    // --- Chatbot Logic ---
-    class PortfolioBot {
-      constructor() {
-        this.knowledgeBase = {
-          "hello": "Vanakkam! Ask me about Prem's skills, events, AI projects, or certificates!",
-          "hi": "Hello there! How can I help you learn more about Prem today?",
-          "skills": "Prem has a solid foundation in AI/ML and Java. He uses Microsoft Azure, Power BI, and GitHub Copilot. Ask me about his 'projects' or 'os knowledge'!",
-          "os": "Prem has a deep understanding of Operating Systems, particularly in core concepts like memory management, process scheduling, and synchronization.",
-          "events": "Prem organized a major college AI/ML technical symposium in Feb 2026 (including posters and videos!) and coordinated a departmental Industrial Visit in Coimbatore.",
-          "coimbatore": "Prem planned a fantastic one-day Industrial Visit and tourist trip for his department in Coimbatore back in February 2026.",
-          "projects": "He is currently building this interactive portfolio! Prem also has experience designing AI/ML solutions and creating portfolio websites for others, like Vijayalakshmi R.",
-          "java": "Prem loves Java programming! He is skilled in everything from the basics to working with data structures like finding duplicate elements in arrays.",
-          "tamil": "ஆமாம், பிரேம் தமிழ் பேசுவார்! (Yes, Prem speaks Tamil!)",
-          "certificates": this.getCertificates(),
-          "certificate": this.getCertificates()
-        };
-      }
-
-      getCertificates() {
-        const certList = [
-          "1. Microsoft Certified: Azure Fundamentals (AZ-900)",
-          "2. Microsoft Power BI Data Analyst Associate (PL-300)",
-          "3. DeepLearning.AI Machine Learning Specialization",
-          "4. Complete Java Programming Masterclass",
-          "5. GitHub Copilot & AI Coding Assistant Certification",
-          "6. Operating Systems Concepts & Architecture",
-          "7. Python for Data Science and Machine Learning",
-          "8. Advanced SQL & Database Management",
-          "9. Introduction to Artificial Intelligence (IBM)",
-          "10. Cloud Computing Core Concepts",
-          "11. Data Structures & Algorithms in Java",
-          "12. Frontend Web Development (HTML/CSS/JS)",
-          "13. Enterprise Design Thinking Practitioner",
-          "14. Agile Project Management Principles",
-          "15. Neural Networks and Deep Learning",
-          "16. Data Visualization with Tableau & Power BI",
-          "17. Version Control with Git and GitHub",
-          "18. Object-Oriented Programming (OOP) Principles",
-          "19. Natural Language Processing (NLP) Basics",
-          "20. Cybersecurity Fundamentals",
-          "21. Leadership & Technical Event Management",
-          "22. API Integration and Backend Development",
-          "23. Computer Networks and Communication"
-        ];
-        return `<strong>Prem has 23 certifications:</strong><br><br>` + certList.join('<br>');
-      }
-
-      getResponse(userInput) {
-        let lowerInput = userInput.toLowerCase();
-        for (let key in this.knowledgeBase) {
-          if (lowerInput.includes(key)) {
-            return this.knowledgeBase[key];
-          }
+    <script>
+        // Floating Stars
+        const starContainer = document.getElementById('star-container');
+        for(let i = 0; i < 25; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            let size = Math.random() * 4 + 2; 
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starContainer.appendChild(star);
         }
-        return "I'm still learning! Try asking about Prem's 'skills', 'events', 'java', 'tamil', or 'certificates'.";
-      }
-    }
 
-    const myBot = new PortfolioBot();
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
+        // Scroll Animation & Skill Bar
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    if(entry.target.id === 'skills') {
+                        const bars = document.querySelectorAll('.skill-bar-fill');
+                        bars.forEach(bar => { bar.style.width = bar.getAttribute('data-width'); });
+                    }
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-section').forEach(sec => observer.observe(sec));
 
-    function appendMessage(text, sender) {
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message');
-      
-      if (sender === 'user') {
-        msgDiv.classList.add('user-message');
-        msgDiv.textContent = text; 
-      } else {
-        msgDiv.classList.add('bot-message');
-        msgDiv.innerHTML = text; 
-      }
-      
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+        // Modal Logic
+        const modal = document.getElementById('certModal');
+        const modalImg = document.getElementById('modalImg');
+        function openModal(imageSrc) { modal.classList.add('show'); modalImg.src = imageSrc; }
+        function closeModal() { modal.classList.remove('show'); setTimeout(() => modalImg.src = '', 300); }
 
-    function handleChat() {
-      const userText = userInput.value.trim();
-      if (userText === "") return;
+        // Advanced Chatbot Logic
+        function toggleChat() {
+            const wrapper = document.getElementById('chatBodyWrapper');
+            const icon = document.getElementById('chatToggleIcon');
+            if (wrapper.style.display === 'block') {
+                wrapper.style.display = 'none';
+                icon.innerText = '▲';
+            } else {
+                wrapper.style.display = 'block';
+                icon.innerText = '▼';
+            }
+        }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const originalText = inputField.value.trim();
+            const cleanText = originalText.toLowerCase().replace(/[^\w\s]/gi, ' '); 
+            
+            if (!originalText) return;
 
-      appendMessage(userText, 'user');
-      userInput.value = '';
+            appendMessage(originalText, 'user');
+            inputField.value = '';
+            
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.style.display = 'flex';
+            const chatBox = document.getElementById('chatBox');
+            chatBox.appendChild(typingIndicator); 
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-      const botResponse = myBot.getResponse(userText);
+            setTimeout(() => {
+                typingIndicator.style.display = 'none'; 
+                
+                // DEFAULT REPLY
+                let reply = "Mmm.. Enaku puriyala da, konjam theliva kelu. Viji yoda 'skills', 'college', 'certificates', illa 'contact' nu keta na crcta solluven.";
+                
+                // 1. EXIT LOGIC
+                if (cleanText.match(/\b(bye|tata|poitu|see you|leave)\b/)) {
+                    reply = "Seri da, poitu vaa! Viji pathi vera edhavadhu kekanumna eppo vena vaa. Bye! 👋";
+                }
+                
+                // 2. SPECIFIC CONTEXTS 
+                else if (cleanText.match(/\b(communication|speak|talk|pesuva|pesuvanga)\b/)) {
+                    reply = "Viji pesuradha patha yaruka irundhalum pidikum! English layum nalla fluenta pesuva, nalla communication skills iruku avaluku. 🗣️";
+                }
+                else if (cleanText.match(/\b(talent|good girl|thairiyam|brave|strong|super girl|smart)\b/)) {
+                    reply = "Aama da, ava romba thairiyamanava! Semma strong, edhu vandhalum asaramal face pannuva. 💪";
+                }
+                else if (cleanText.match(/\b(what type|which type|enna enna|list|types)\b/) && cleanText.match(/\b(cert|certificates|certificate|award)\b/)) {
+                    reply = "Niraiyave iruke! Hackathons, Paper Presentations, Fluid Mechanics Quizzes, apram Welding workshops nu technical side la thool kelapiruka.";
+                }
+                else if (cleanText.match(/\b(how|epdi|evalo)\b/) && cleanText.match(/\b(cert|certificates|certificate|prize|award)\b/)) {
+                    reply = "Avaluku romba interest da! Edha eduthaalum full effort potu panna koodiyava, adhaan ivlo certificates vangiruka. 🔥";
+                }
+                else if (cleanText.match(/\b(what she done|enna panniruka|achievements|achieve)\b/)) {
+                    reply = "Mechanical & AI rendulayum nalla perform panni 23 certificates kitta vangiruka da. Technical events na avaluku romba uyir!";
+                }
+                else if (cleanText.match(/\b(fluid|mechanics|quiz)\b/)) {
+                    reply = "Fluid mechanics na avaluku romba pidikum pola, 3 quiz eludhi athula 87% kitta score panniruka. Gethu dhaan!";
+                }
 
-      setTimeout(() => {
-        appendMessage(botResponse, 'bot');
-      }, 400);
-    }
-
-    sendBtn.addEventListener('click', handleChat);
-    userInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        handleChat();
-      }
-    });
-  </script>
-
+                // 3. GENERAL CONTEXTS
+                else if (cleanText.match(/\b(who are you|nee yar|unna pathi|un name|who u r|robot|ai|yar nee)\b/)) {
+                    reply = "Naan dhaan Viji yoda personal AI friend pandren! 🤖 Avaloda skills, certificates, goals ellame enaku a-z theriyum. Enna kekkanum nu sollu.";
+                }
+                else if (cleanText.match(/\b(help|enna pannuva|what can you do)\b/)) {
+                    reply = "Viji yoda 'skills', 'college', 'contact', illa 'hobbies' pathi edhu venumnalum kelu, naan detail ah solren.";
+                }
+                else if (cleanText.match(/\b(how are you|epdi iruka|how r u|fine)\b/)) {
+                    reply = "Naan super ah iruken da! Viji pathi solla eppavume ready. Unakku enna detail venum ippo?";
+                }
+                else if (cleanText.match(/\b(thank|thanks|nandri|tq|thx|superda)\b/)) {
+                    reply = "Welcome da! Paravalaikku ithu kooda va pannamaten. Vera edhavathu theriyanuma?";
+                }
+                else if (cleanText.match(/\b(phone|number|call|mail|email|contact|epdi pesurathu|whatsapp|address)\b/)) {
+                    reply = "Kandippa! Phone venumna +91 8072863606 ku call pannu, illa rvijayalakshmia@gmail.com ku mail podu. Avale reply pannuva!";
+                } 
+                else if (cleanText.match(/\b(where|ooru|location|place|from)\b/)) {
+                    reply = "Ava namma Coimbatore ponnu thaan da. Pakka Thamizhachi!";
+                }
+                else if (cleanText.match(/\b(cert|award|show|kattu|prize|win|won|certificates)\b/)) {
+                    reply = "Itho paaru! Total ah 23 certificates irukku. Ellame pakka technical achievements. Keela scroll panni paaru.";
+                } 
+                else if (cleanText.match(/\b(skill|tech|java|cad|theriyum|thiramai|software|language|programming|skills)\b/)) {
+                    reply = "Viji ku CAD modelling, welding tech, basic Java, AI concepts ellam nalla theriyum. Communication layum romba strong. Vera enna therinkanum?";
+                } 
+                else if (cleanText.match(/\b(college|study|padikiranga|degree|department|dept|mech|school|course)\b/)) {
+                    reply = "Namma Coimbatore la irukka Arjun College of Technology la 2nd-year Mechanical Engineering padikura da ava.";
+                } 
+                else if (cleanText.match(/\b(goal|future|aim|latchiyam|plan|goals)\b/)) {
+                    reply = "Mechanical principles kooda AI technology ah mix panni oru pakka smart engineer aaganum ngurathu thaan avaloda periya dream.";
+                } 
+                else if (cleanText.match(/\b(hobby|hobbies|free time|vettiya|interest)\b/)) {
+                    reply = "Technical events organize pandrathu, CATIA la design pandrathu, apram books read pandrathu ellam thaan avaloda timepass.";
+                }
+                else if (cleanText.match(/\b(about|who is|viji pathi|details|profile|bio)\b/)) {
+                    reply = "Viji oru thiramaiyana 2nd-year Mechanical Engineering student. Mechanical and AI rendulayum semma interest avaluku!";
+                } 
+                
+                // 4. CONVERSATION FILLERS & GREETINGS (Checked last)
+                else if (cleanText.match(/\b(ok|okay|super|good|nice|wow|awesome|k|kk)\b/)) {
+                    reply = "Super da! Vera ethavathu kekkamirukiya? 'skills' illa 'contact' pathi kekalam.";
+                }
+                else if (cleanText.match(/\b(hi|hii|hiii|hello|hlo|hey|heyy|vanakkam|hi viji)\b/)) {
+                    reply = "Hello! Vaada, Viji pathi edhu venumnalum kelu, na pakka va solren! ✨";
+                } 
+                
+                appendMessage(reply, 'bot');
+            }, 1200); 
+        }
+        
+        function appendMessage(text, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg ${sender}`; msgDiv.textContent = text;
+            chatBox.insertBefore(msgDiv, document.getElementById('typingIndicator'));
+            chatBox.scrollTop = chatBox.scrollHeight; 
+        }
+    </script>
 </body>
 </html>
