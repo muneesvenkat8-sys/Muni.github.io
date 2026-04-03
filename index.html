@@ -412,23 +412,23 @@
             inputField.value = '';
 
             setTimeout(() => {
-                let reply = "Enaku puriyala da! Viji yoda 'skills', 'college', 'certificates', illa 'contact' pathi kelu. Viji pathi extra unnga suggestion enna?";
+                let reply = "Enaku puriyala da! Viji yoda 'skills', 'college', 'certificates', illa 'contact' pathi kelu.";
                 
                 // Greeting
                 if (text.match(/\b(hi|hii|hiii|hello|hlo|hey|heyy|vanakkam)\b/)) {
-                    reply = "Hii... Hlo! Viji pathi ungaluku enna details venum? Kelunga na solren! ✨ Viji pathi extra unngaloda suggestion enna?";
+                    reply = "Hii... Hlo! Viji pathi ungaluku enna details venum? Kelunga na solren! ✨";
                 } 
                 // Self Identity
                 else if (text.includes('who are you') || text.includes('nee yar') || text.includes('unna pathi') || text.includes('un name') || text.includes('who u r')) {
-                    reply = "Naan Viji yoda personal AI assistant da! 🤖 Viji yoda skills, certificates, goals ellam enaku theriyum. Viji pathi extra unngaloda suggestion enna nu sollunga?";
+                    reply = "Naan Viji yoda personal AI assistant da! 🤖 Viji yoda skills, certificates, goals ellam enaku theriyum. Enna detail venum nu kelu.";
                 }
                 // Contact Details
                 else if (text.includes('phone') || text.includes('number') || text.includes('call') || text.includes('mail') || text.includes('email') || text.includes('contact') || text.includes('epdi pesurathu')) {
-                    reply = "Itho show pandren: Phone +91 8072863606, Email rvijayalakshmia@gmail.com. Kandippa contact pannunga! Unnga suggestion edhavathu irukka?";
+                    reply = "Itho show pandren: Phone +91 8072863606, Email rvijayalakshmia@gmail.com. Kandippa contact pannunga!";
                 } 
                 // Certificates
                 else if (text.includes('cert') || text.includes('award') || text.includes('show') || text.includes('kattu') || text.includes('kammintu')) {
-                    reply = "Itho show pandren! Viji total ah 19 certificates vangirukanga! Hackathon, paper presentation, workshops nu kalakkirukanga. Viji pathi extra unnga suggestion enna?";
+                    reply = "Itho show pandren! Viji total ah 19 certificates vangirukanga! Hackathon, paper presentation, workshops nu kalakkirukanga.";
                 } 
                 // Skills
                 else if (text.includes('skill') || text.includes('tech') || text.includes('java') || text.includes('cad') || text.includes('theriyum') || text.includes('thiramai')) {
@@ -448,11 +448,15 @@
                 }
                 // About
                 else if (text.includes('about') || text.includes('who is') || text.includes('viji pathi') || text.includes('details')) {
-                    reply = "Viji oru 2nd-year Mechanical Engineering student. Mechanical systems and AI innovations la romba interest! Viji pathi extra unngaloda suggestion enna?";
+                    reply = "Viji oru 2nd-year Mechanical Engineering student. Mechanical systems and AI innovations la romba interest!";
                 } 
+                // Conversation filler
+                else if (text.match(/\b(ok|okay|super|thanks|good|nice)\b/)) {
+                    reply = "Super! Viji pathi vera ethavathu theriyanuma? 'skills' illa 'contact' pathi kekalam.";
+                }
                 // Goodbye
                 else if (text.includes('bye') || text.includes('tata') || text.includes('poitu') || text.includes('see you')) {
-                    reply = "viji details pathi unnga doubts clear ahhirukum nu nenikuren have a good day bye";
+                    reply = "Viji pathi unnga extra suggestion edhavathu irundha sollunga. Viji details pathi unnga doubts clear ahhirukum nu nenikuren, have a good day bye! ✨";
                 }
                 
                 appendMessage(reply, 'bot');
