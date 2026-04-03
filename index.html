@@ -63,7 +63,7 @@
             position: relative; width: 100%; height: 100%; text-align: center;
             transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); 
             transform-style: preserve-3d; border-radius: 50%;
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); /* Glow moved here */
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); 
         }
         /* Flips cleanly on hover or touch */
         .flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner { 
@@ -74,7 +74,7 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             -webkit-backface-visibility: hidden; backface-visibility: hidden;
             border-radius: 50%; border: 3px solid var(--primary); object-fit: cover;
-            background-color: var(--card-bg); /* Prevents transparent ghosting */
+            background-color: var(--card-bg); 
         }
         .flip-card-back { 
             transform: rotateY(180deg); 
@@ -126,18 +126,17 @@
             background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center;
         }
         .modal.show { display: flex; }
-        /* Notice: Removed the dummy fallback so you know if your local file is missing! */
         .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 2px solid var(--primary); }
         .close-btn { position: absolute; top: 20px; right: 30px; color: var(--primary); font-size: 3rem; cursor: pointer; }
 
-        /* Contact Details (Ordered Vertically) */
+        /* Contact Details */
         .contact-box { background: var(--card-bg); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #1e293b; }
         .contact-details { display: flex; flex-direction: column; gap: 1.5rem; font-size: 1.1rem; }
         .contact-item { display: flex; align-items: center; gap: 1rem; }
         .contact-icon { font-size: 1.5rem; background: #1e293b; border: 1px solid #334155; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
         .contact-item a { color: var(--primary); text-decoration: none; font-weight: 600; }
 
-        /* Chatbot (Offset to the right bottom middle) */
+        /* Chatbot */
         .chat-widget {
             position: fixed; bottom: 25px; right: 5%; width: 300px; max-width: 90%; background: var(--card-bg);
             border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); overflow: hidden; z-index: 1000;
@@ -192,17 +191,17 @@
         
         <div class="grid-container">
             <div class="card">
-                <h3>🎯 Career Goals</h3>
+                <h3>🚀 Career Goals</h3>
                 <p><strong>Short-Term:</strong> To excel in my mechanical engineering studies, master advanced CAD tools, and actively participate in technical symposiums.</p>
                 <p><strong>Long-Term:</strong> To become a versatile, industry-leading engineer who seamlessly merges traditional mechanical principles with AI technology.</p>
             </div>
             <div class="card">
-                <h3>🎨 Hobbies</h3>
+                <h3>✨ Hobbies</h3>
                 <ul style="list-style-type: none; padding-left: 0; line-height: 2;">
-                    <li>⚙️ Organizing core engineering events</li>
-                    <li>💻 Learning CATIA & designing courses</li>
-                    <li>📚 Book reading</li>
-                    <li>🤝 Socializing and networking</li>
+                    <li>🛠️ Organizing core engineering events</li>
+                    <li>📐 Learning CATIA & designing courses</li>
+                    <li>📖 Book reading</li>
+                    <li>🌐 Socializing and networking</li>
                 </ul>
             </div>
         </div>
@@ -298,7 +297,7 @@
 
     <div id="certModal" class="modal" onclick="closeModal()">
         <span class="close-btn">&times;</span>
-        <img id="modalImg" src="" alt="Missing Image - Make sure you saved your certificates as cert1.jpg, cert2.jpg etc. in the same folder!">
+        <img id="modalImg" src="" alt="Missing Image">
     </div>
 
     <section id="contact" class="fade-in-section">
@@ -308,19 +307,19 @@
         <div class="contact-box">
             <div class="contact-details">
                 <div class="contact-item">
-                    <div class="contact-icon">📱</div>
+                    <div class="contact-icon">📞</div>
                     <div><strong>Phone:</strong> +91 8072863606</div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">📧</div>
+                    <div class="contact-icon">✉️</div>
                     <div><strong>Email:</strong> <a href="mailto:rvijayalakshmia@gmail.com">rvijayalakshmia@gmail.com</a></div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">🔗</div>
+                    <div class="contact-icon">💼</div>
                     <div><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vijayalakshmi-ramar-541b03326" target="_blank">Connect with me</a></div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">📍</div>
+                    <div class="contact-icon">📌</div>
                     <div><strong>Location:</strong> Coimbatore, Tamil Nadu.</div>
                 </div>
             </div>
@@ -333,7 +332,7 @@
 
     <div class="chat-widget">
         <div class="chat-header" onclick="toggleChat()">
-            <span>🤖 Ask Viji's AI</span>
+            <span>👩‍💻 Ask Viji's AI</span>
             <span id="chatToggleIcon">▲</span>
         </div>
         <div id="chatBodyWrapper">
@@ -402,7 +401,7 @@
 
             setTimeout(() => {
                 let reply = "Try asking about her 'skills', 'college', 'certificates', or say 'tell me about her'.";
-                if (text.includes('bye')) reply = "Goodbye! Have a great day! 🌟";
+                if (text.includes('bye')) reply = "Goodbye! Have a great day! ✨";
                 else if (text.includes('about')) reply = "She is a 2nd-year Mechanical Engineering student blending mechanics with AI!";
                 else if (text.includes('college')) reply = "She studies at Arjun College of Technology in Coimbatore.";
                 else if (text.includes('skill')) reply = "Top skills: CAD, welding, Java, and AI concepts.";
