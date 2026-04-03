@@ -52,7 +52,7 @@
             100% { transform: translateY(-15px) scale(1.5); opacity: 1; }
         }
 
-        /* 3D Profile Flip Card (Fixed glitch) */
+        /* 3D Profile Flip Card */
         .header-content { position: relative; z-index: 1; text-align: left; max-width: 800px; width: 100%; display: flex; flex-direction: column; align-items: center;}
         
         .flip-card {
@@ -292,6 +292,18 @@
                 <div><strong>EGSOW 2K26 Technical Fest</strong><br><small>Karpagam Academy</small></div>
                 <div class="cert-year">Feb</div>
             </div>
+            <div class="cert-item" onclick="openModal('cert17.jpg')">
+                <div><strong>100% Attendance (2025-26)</strong><br><small>Arjun College of Technology</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert18.jpg')">
+                <div><strong>SARVAM 2026 Fest (Event 1)</strong><br><small>EASA College of Engineering</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
+            <div class="cert-item" onclick="openModal('cert19.jpg')">
+                <div><strong>SARVAM 2026 Fest (Event 2)</strong><br><small>EASA College of Engineering</small></div>
+                <div class="cert-year">Mar</div>
+            </div>
         </div>
     </section>
 
@@ -405,7 +417,7 @@
                 else if (text.includes('about')) reply = "She is a 2nd-year Mechanical Engineering student blending mechanics with AI!";
                 else if (text.includes('college')) reply = "She studies at Arjun College of Technology in Coimbatore.";
                 else if (text.includes('skill')) reply = "Top skills: CAD, welding, Java, and AI concepts.";
-                else if (text.includes('cert') || text.includes('award')) reply = "She holds 16 certificates across technical events and workshops.";
+                else if (text.includes('cert') || text.includes('award')) reply = "She holds 19 certificates across technical events and workshops.";
                 else if (text.includes('contact') || text.includes('phone')) reply = "Call +91 8072863606 or email rvijayalakshmia@gmail.com.";
                 
                 appendMessage(reply, 'bot');
